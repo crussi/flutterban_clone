@@ -32,7 +32,7 @@ class TaskCard extends StatelessWidget {
           child: Draggable<KData>(
             onDragUpdate: dragListener,
             feedback: Material(
-              color: Colors.red,
+              color: Colors.blue.withOpacity(0.75),
               borderRadius: BorderRadius.circular(10.0),
               child: Container(
                 height: 50,
@@ -47,7 +47,7 @@ class TaskCard extends StatelessWidget {
             childWhenDragging: Container(color: Colors.black12),
             data: KData(from: columnIndex, task: task),
             child: Container(
-              color: Colors.red,
+              color: Colors.blue.withOpacity(1),
               child: ListTile(
                 dense: true,
                 title: TaskText(

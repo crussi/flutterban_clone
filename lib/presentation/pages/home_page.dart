@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-
 import '../state_managers/bloc/kanban_bloc.dart';
-import '../state_managers/change_notifier/kanban_board_notifier.dart';
-import 'kaban_set_state_page.dart';
 import 'kanban_bloc_page.dart';
-import 'kanban_board_provider.dart';
-import 'kanban_mobx_page.dart';
+
+//BYPASS: KanbanBlocPage loaded in main.dart
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -20,12 +16,12 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          _buildListTile(
-            title: 'Set State',
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const KanbanSetStatePage()),
-            ),
-          ),
+          // _buildListTile(
+          //   title: 'Set State',
+          //   onTap: () => Navigator.of(context).push(
+          //     MaterialPageRoute(builder: (_) => const KanbanSetStatePage()),
+          //   ),
+          // ),
           _buildListTile(
             title: 'Bloc',
             onTap: () => Navigator.of(context).push(
@@ -43,23 +39,23 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          _buildListTile(
-            title: 'MobX',
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => KanbanMobxPage()),
-            ),
-          ),
-          _buildListTile(
-            title: 'Change Notifier',
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => ChangeNotifierProvider(
-                  create: (context) => KanbanBoardNotifier(),
-                  child: const KanbanBoardProvider(),
-                ),
-              ),
-            ),
-          ),
+          // _buildListTile(
+          //   title: 'MobX',
+          //   onTap: () => Navigator.of(context).push(
+          //     MaterialPageRoute(builder: (_) => KanbanMobxPage()),
+          //   ),
+          // ),
+          // _buildListTile(
+          //   title: 'Change Notifier',
+          //   onTap: () => Navigator.of(context).push(
+          //     MaterialPageRoute(
+          //       builder: (_) => ChangeNotifierProvider(
+          //         create: (context) => KanbanBoardNotifier(),
+          //         child: const KanbanBoardProvider(),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

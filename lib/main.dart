@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'presentation/pages/home_page.dart';
+import 'presentation/pages/kanban_bloc_page.dart';
+import 'presentation/state_managers/bloc/kanban_bloc.dart';
 import 'utils/light_theme.dart';
 
 void main() {
@@ -17,7 +20,17 @@ class MyApp extends StatelessWidget {
       title: 'Flutterban',
       theme: AppTheme.lightTheme(),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: BlocProvider(
+        create: (_) {
+          final bloc = KanbanBloc();
+          bloc.add(const KanbanEvent.getColumns());
+          return bloc;
+        },
+        child: const KanbanBlocPage(),
+      ),
     );
   }
 }
+
+
+//home: const HomePage(),

@@ -9,14 +9,14 @@ class AppTheme {
       primaryTextTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.white),
       ),
-      primaryColor: Colors.red,
+      primaryColor: Colors.blue,
       fontFamily: 'Montserrat',
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
           minimumSize: const Size(150, 50),
           maximumSize: const Size(300, 50),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.blue,
           disabledForegroundColor: Colors.black38,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -29,13 +29,13 @@ class AppTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: Colors.red,
+          foregroundColor: Colors.blue,
           minimumSize: const Size(double.infinity, 50),
           disabledForegroundColor: Colors.black38.withOpacity(0.38),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          side: const BorderSide(color: Colors.red),
+          side: const BorderSide(color: Colors.blue),
           textStyle: const TextStyle(
             fontSize: 14.0,
             fontWeight: FontWeight.w700,
@@ -44,7 +44,7 @@ class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-        foregroundColor: Colors.red,
+        foregroundColor: Colors.blue,
         textStyle: const TextStyle(
           fontSize: 15.0,
           fontWeight: FontWeight.w700,
@@ -104,8 +104,8 @@ class AppTheme {
       ),
       colorScheme: themeData.colorScheme
           .copyWith(
-            secondary: Colors.blue,
-            primary: Colors.red,
+            secondary: Colors.blueAccent,
+            primary: Colors.blue,
             background: Colors.white,
           )
           .copyWith(background: Colors.white),
