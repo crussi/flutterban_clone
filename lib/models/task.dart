@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'task.freezed.dart';
@@ -6,5 +8,7 @@ part 'task.freezed.dart';
 class KTask with _$KTask {
   const factory KTask({
     required String title,
+    required String description,
+    required Color themeColor,
   }) = _KTask;
 }

@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$KTask {
   String get title => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  Color get themeColor => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $KTaskCopyWith<KTask> get copyWith => throw _privateConstructorUsedError;
@@ -27,7 +29,7 @@ abstract class $KTaskCopyWith<$Res> {
   factory $KTaskCopyWith(KTask value, $Res Function(KTask) then) =
       _$KTaskCopyWithImpl<$Res, KTask>;
   @useResult
-  $Res call({String title});
+  $Res call({String title, String description, Color themeColor});
 }
 
 /// @nodoc
@@ -44,12 +46,22 @@ class _$KTaskCopyWithImpl<$Res, $Val extends KTask>
   @override
   $Res call({
     Object? title = null,
+    Object? description = null,
+    Object? themeColor = null,
   }) {
     return _then(_value.copyWith(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      themeColor: null == themeColor
+          ? _value.themeColor
+          : themeColor // ignore: cast_nullable_to_non_nullable
+              as Color,
     ) as $Val);
   }
 }
@@ -60,7 +72,7 @@ abstract class _$$_KTaskCopyWith<$Res> implements $KTaskCopyWith<$Res> {
       __$$_KTaskCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title});
+  $Res call({String title, String description, Color themeColor});
 }
 
 /// @nodoc
@@ -73,12 +85,22 @@ class __$$_KTaskCopyWithImpl<$Res> extends _$KTaskCopyWithImpl<$Res, _$_KTask>
   @override
   $Res call({
     Object? title = null,
+    Object? description = null,
+    Object? themeColor = null,
   }) {
     return _then(_$_KTask(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      themeColor: null == themeColor
+          ? _value.themeColor
+          : themeColor // ignore: cast_nullable_to_non_nullable
+              as Color,
     ));
   }
 }
@@ -86,14 +108,21 @@ class __$$_KTaskCopyWithImpl<$Res> extends _$KTaskCopyWithImpl<$Res, _$_KTask>
 /// @nodoc
 
 class _$_KTask implements _KTask {
-  const _$_KTask({required this.title});
+  const _$_KTask(
+      {required this.title,
+      required this.description,
+      required this.themeColor});
 
   @override
   final String title;
+  @override
+  final String description;
+  @override
+  final Color themeColor;
 
   @override
   String toString() {
-    return 'KTask(title: $title)';
+    return 'KTask(title: $title, description: $description, themeColor: $themeColor)';
   }
 
   @override
@@ -101,11 +130,15 @@ class _$_KTask implements _KTask {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_KTask &&
-            (identical(other.title, title) || other.title == title));
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.themeColor, themeColor) ||
+                other.themeColor == themeColor));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title);
+  int get hashCode => Object.hash(runtimeType, title, description, themeColor);
 
   @JsonKey(ignore: true)
   @override
@@ -115,10 +148,17 @@ class _$_KTask implements _KTask {
 }
 
 abstract class _KTask implements KTask {
-  const factory _KTask({required final String title}) = _$_KTask;
+  const factory _KTask(
+      {required final String title,
+      required final String description,
+      required final Color themeColor}) = _$_KTask;
 
   @override
   String get title;
+  @override
+  String get description;
+  @override
+  Color get themeColor;
   @override
   @JsonKey(ignore: true)
   _$$_KTaskCopyWith<_$_KTask> get copyWith =>

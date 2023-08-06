@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../../models/models.dart';
@@ -76,10 +78,43 @@ class KanbanColumn extends StatelessWidget {
     );
   }
 
+  Widget proxyDecorator(Widget child, int index, Animation<double> animation) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (BuildContext context, Widget? child) {
+        final double animValue = Curves.easeInOut.transform(animation.value);
+        final double elevation = lerpDouble(0, 6, animValue)!;
+        return Material(
+          elevation: elevation,
+          color: Colors.transparent,
+          shadowColor: Colors.black.withOpacity(0.50),
+          borderRadius: BorderRadius.circular(10.0),
+          child: child,
+        );
+      },
+      child: child,
+    );
+  }
+
   Widget _buildListItemsColumn() {
     return Expanded(
+      
       child: ReorderableListView(
+        
+        //buildDefaultDragHandles: false,
+        proxyDecorator: proxyDecorator,
+        onReorderEnd: (index) => {print('onReorderEnd index: $index')},
+        onReorderStart: (index) => {print('onReorderStart index: $index')},
         onReorder: (oldIndex, newIndex) {
+          print('onReorder oldIndex: $oldIndex newIndex: $newIndex');
+          //On most reorderablelistview reorder events
+          //the newIndex is +2 greater than oldIndex
+          //for some reason it's only +1 greater.  Only
+          //adjust when +2 greater.
+          if (oldIndex < newIndex - 1) {
+            newIndex -= 1;
+          }
+
           if (newIndex < column.children.length) {
             reorderHandler(oldIndex, newIndex, index);
           }

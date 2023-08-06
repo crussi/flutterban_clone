@@ -2,11 +2,17 @@ import 'package:bloc/bloc.dart';
 
 import '../../../data/data.dart';
 import '../../../models/models.dart';
+//import 'package:intl/intl.dart';
+import '../../../utils/theme.dart';
 import 'kanban_event.dart';
 import 'kanban_state.dart';
 
 export 'kanban_event.dart';
 export 'kanban_state.dart';
+
+int getCurrentTimeInMilliseconds() {
+  return DateTime.now().millisecondsSinceEpoch;
+}
 
 class KanbanBloc extends Bloc<KanbanEvent, KanbanState> {
   List<KColumn> columns = Data.getColumns();
@@ -20,6 +26,7 @@ class KanbanBloc extends Bloc<KanbanEvent, KanbanState> {
           currentState.copyWith(columns: columns, status: Status.loaded),
         ),
         addColumn: (title) {
+          print('addColumn title: $title');
           final updatedColumns = currentState.columns;
           updatedColumns.add(KColumn(
             title: title,
@@ -33,6 +40,7 @@ class KanbanBloc extends Bloc<KanbanEvent, KanbanState> {
           );
         },
         deleteTask: (column, task) {
+          print('deleteTask column: $column task: ${task.toString()}');
           final updatedColumns = currentState.columns;
           updatedColumns[column].children.remove(task);
           emit(
@@ -43,20 +51,29 @@ class KanbanBloc extends Bloc<KanbanEvent, KanbanState> {
           );
         },
         reorderTask: (column, from, to) {
+          //print(getCurrentTimeInMilliseconds());
+          print('reorderTask column: $column from: $from to: $to');
           if (from != to) {
+            //print('from != to ... reorder');
             final updatedColumns = currentState.columns;
             final task = columns[column].children[from];
+            //print('b4 remove ${updatedColumns[column].children.toString()}');
             updatedColumns[column].children.remove(task);
+            //print('af remove ${updatedColumns[column].children.toString()}');
             updatedColumns[column].children.insert(to, task);
+            //print('af insert ${updatedColumns[column].children.toString()}');
             emit(
               currentState.copyWith(
                 columns: updatedColumns,
                 status: Status.loaded,
               ),
             );
+          } else {
+            //print('from: $from to: $to from == to');
           }
         },
         moveTask: (data, column) {
+          print('moveTask column: $column data: ${data.toString()}');
           final updatedColumns = currentState.columns;
           updatedColumns[data.from].children.remove(data.task);
           updatedColumns[column].children.add(data.task);
@@ -68,8 +85,10 @@ class KanbanBloc extends Bloc<KanbanEvent, KanbanState> {
           );
         },
         addTask: (column, title) {
+          print('addTask column: $column title: $title');
           final updatedColumns = currentState.copyWith().columns;
-          updatedColumns[column].children.add(KTask(title: title));
+          updatedColumns[column].children.add(KTask(
+              title: title, description: 'description', themeColor: lightBlue));
           final newState = state.copyWith(
               columns: List.of(updatedColumns), status: Status.loaded);
           emit(newState);

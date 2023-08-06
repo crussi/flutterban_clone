@@ -14,14 +14,17 @@ abstract class KanbanState implements _$KanbanState {
   }) = _KanbanState;
 
   factory KanbanState.initial() {
+    print('KanbanState initial');
     return const KanbanState(columns: [], status: Status.loading);
   }
 
   factory KanbanState.loading() {
+    print('KanbanState loading');
     return const KanbanState(columns: [], status: Status.loading);
   }
 
   factory KanbanState.loaded(List<KColumn> projects) {
+    print('KanbanState loaded projectslength: ${projects.length}');
     return KanbanState(columns: projects, status: Status.loaded);
   }
 }

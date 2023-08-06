@@ -48,11 +48,15 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
 
   @override
   void deleteItem(int columnIndex, KTask task) {
+    print(
+        'bloc page deleteItem columnIndex: $columnIndex task: ${task.toString()}');
     context.read<KanbanBloc>().add(KanbanEvent.deleteTask(columnIndex, task));
   }
 
   @override
   void handleReOrder(int oldIndex, int newIndex, int column) {
+    print(
+        'bloc page handleReOrder oldIndex: $oldIndex newIndex: $newIndex column: $column');
     context
         .read<KanbanBloc>()
         .add(KanbanEvent.reorderTask(column, oldIndex, newIndex));
@@ -60,16 +64,19 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
 
   @override
   void dragHandler(KData data, int index) {
+    print('bloc page dragHandler index: $index data: ${data.toString()}');
     context.read<KanbanBloc>().add(KanbanEvent.moveTask(data, index));
   }
 
   @override
   void addColumn(String title) {
+    print('bloc page addColumn title: $title');
     context.read<KanbanBloc>().add(KanbanEvent.addColumn(title));
   }
 
   @override
   void addTask(String title, int column) {
+    print('bloc page addTask column: $column title: $title');
     context.read<KanbanBloc>().add(KanbanEvent.addTask(column, title));
   }
 }
