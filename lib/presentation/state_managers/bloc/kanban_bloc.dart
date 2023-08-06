@@ -68,8 +68,22 @@ class KanbanBloc extends Bloc<KanbanEvent, KanbanState> {
                 status: Status.loaded,
               ),
             );
-          } else {
-            //print('from: $from to: $to from == to');
+          }
+        },
+        reorderColumn: (int from, int to) {
+          //print(getCurrentTimeInMilliseconds());
+          print('reorderColumn from: $from to: $to');
+          if (from != to) {
+            //print('from != to ... reorder');
+            final updatedColumns = currentState.columns;
+            final column = updatedColumns.removeAt(from);
+            updatedColumns.insert(to, column);
+            emit(
+              currentState.copyWith(
+                columns: updatedColumns,
+                status: Status.loaded,
+              ),
+            );
           }
         },
         moveTask: (data, column) {

@@ -20,7 +20,7 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bloc'),
+        title: const Text('Personal Kanban'),
       ),
       body: SafeArea(
         child: BlocBuilder<KanbanBloc, KanbanState>(
@@ -35,6 +35,7 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
                   return KanbanBoard(
                     controller: this,
                     columns: state.columns,
+                    reorderHandler: handleColumnReOrder,
                   );
                 } else {
                   return const SizedBox.shrink();
@@ -54,12 +55,21 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
   }
 
   @override
-  void handleReOrder(int oldIndex, int newIndex, int column) {
+  void handleTileReOrder(int oldIndex, int newIndex, int column) {
     print(
-        'bloc page handleReOrder oldIndex: $oldIndex newIndex: $newIndex column: $column');
+        'bloc page handleTileReOrder oldIndex: $oldIndex newIndex: $newIndex column: $column');
     context
         .read<KanbanBloc>()
         .add(KanbanEvent.reorderTask(column, oldIndex, newIndex));
+  }
+
+  @override
+  void handleColumnReOrder(int oldIndex, int newIndex) {
+    print(
+        'bloc page handleColumnReOrder oldIndex: $oldIndex newIndex: $newIndex');
+    context
+        .read<KanbanBloc>()
+        .add(KanbanEvent.reorderColumn(oldIndex, newIndex));
   }
 
   @override
