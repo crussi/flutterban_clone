@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'data.dart';
+part of 'tiledata.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,18 +15,19 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$KData {
+mixin _$KTileData {
   int get from => throw _privateConstructorUsedError;
   KTask get task => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $KDataCopyWith<KData> get copyWith => throw _privateConstructorUsedError;
+  $KTileDataCopyWith<KTileData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $KDataCopyWith<$Res> {
-  factory $KDataCopyWith(KData value, $Res Function(KData) then) =
-      _$KDataCopyWithImpl<$Res, KData>;
+abstract class $KTileDataCopyWith<$Res> {
+  factory $KTileDataCopyWith(KTileData value, $Res Function(KTileData) then) =
+      _$KTileDataCopyWithImpl<$Res, KTileData>;
   @useResult
   $Res call({int from, KTask task});
 
@@ -34,9 +35,9 @@ abstract class $KDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$KDataCopyWithImpl<$Res, $Val extends KData>
-    implements $KDataCopyWith<$Res> {
-  _$KDataCopyWithImpl(this._value, this._then);
+class _$KTileDataCopyWithImpl<$Res, $Val extends KTileData>
+    implements $KTileDataCopyWith<$Res> {
+  _$KTileDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -71,9 +72,10 @@ class _$KDataCopyWithImpl<$Res, $Val extends KData>
 }
 
 /// @nodoc
-abstract class _$$_KDataCopyWith<$Res> implements $KDataCopyWith<$Res> {
-  factory _$$_KDataCopyWith(_$_KData value, $Res Function(_$_KData) then) =
-      __$$_KDataCopyWithImpl<$Res>;
+abstract class _$$_KTileDataCopyWith<$Res> implements $KTileDataCopyWith<$Res> {
+  factory _$$_KTileDataCopyWith(
+          _$_KTileData value, $Res Function(_$_KTileData) then) =
+      __$$_KTileDataCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int from, KTask task});
@@ -83,9 +85,11 @@ abstract class _$$_KDataCopyWith<$Res> implements $KDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_KDataCopyWithImpl<$Res> extends _$KDataCopyWithImpl<$Res, _$_KData>
-    implements _$$_KDataCopyWith<$Res> {
-  __$$_KDataCopyWithImpl(_$_KData _value, $Res Function(_$_KData) _then)
+class __$$_KTileDataCopyWithImpl<$Res>
+    extends _$KTileDataCopyWithImpl<$Res, _$_KTileData>
+    implements _$$_KTileDataCopyWith<$Res> {
+  __$$_KTileDataCopyWithImpl(
+      _$_KTileData _value, $Res Function(_$_KTileData) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,7 +98,7 @@ class __$$_KDataCopyWithImpl<$Res> extends _$KDataCopyWithImpl<$Res, _$_KData>
     Object? from = null,
     Object? task = null,
   }) {
-    return _then(_$_KData(
+    return _then(_$_KTileData(
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -109,8 +113,8 @@ class __$$_KDataCopyWithImpl<$Res> extends _$KDataCopyWithImpl<$Res, _$_KData>
 
 /// @nodoc
 
-class _$_KData implements _KData {
-  const _$_KData({required this.from, required this.task});
+class _$_KTileData implements _KTileData {
+  const _$_KTileData({required this.from, required this.task});
 
   @override
   final int from;
@@ -119,14 +123,14 @@ class _$_KData implements _KData {
 
   @override
   String toString() {
-    return 'KData(from: $from, task: $task)';
+    return 'KTileData(from: $from, task: $task)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_KData &&
+            other is _$_KTileData &&
             (identical(other.from, from) || other.from == from) &&
             (identical(other.task, task) || other.task == task));
   }
@@ -137,13 +141,13 @@ class _$_KData implements _KData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_KDataCopyWith<_$_KData> get copyWith =>
-      __$$_KDataCopyWithImpl<_$_KData>(this, _$identity);
+  _$$_KTileDataCopyWith<_$_KTileData> get copyWith =>
+      __$$_KTileDataCopyWithImpl<_$_KTileData>(this, _$identity);
 }
 
-abstract class _KData implements KData {
-  const factory _KData({required final int from, required final KTask task}) =
-      _$_KData;
+abstract class _KTileData implements KTileData {
+  const factory _KTileData(
+      {required final int from, required final KTask task}) = _$_KTileData;
 
   @override
   int get from;
@@ -151,6 +155,6 @@ abstract class _KData implements KData {
   KTask get task;
   @override
   @JsonKey(ignore: true)
-  _$$_KDataCopyWith<_$_KData> get copyWith =>
+  _$$_KTileDataCopyWith<_$_KTileData> get copyWith =>
       throw _privateConstructorUsedError;
 }

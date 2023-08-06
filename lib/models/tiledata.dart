@@ -2,12 +2,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'task.dart';
 
-part 'data.freezed.dart';
+part 'tiledata.freezed.dart';
 
 @freezed
-class KData with _$KData {
-  const factory KData({
+class KTileData with _$KTileData {
+  const factory KTileData({
     required int from,
     required KTask task,
-  }) = _KData;
+  }) = _KTileData;
 }

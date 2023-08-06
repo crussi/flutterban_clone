@@ -30,7 +30,7 @@ class TaskCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: Draggable<KData>(
+            child: Draggable<KTileData>(
               onDragUpdate: dragListener,
               feedback: Material(
                 color: task.themeColor,
@@ -61,7 +61,7 @@ class TaskCard extends StatelessWidget {
                 ),
               ),
               childWhenDragging: Container(color: Colors.black12),
-              data: KData(from: columnIndex, task: task),
+              data: KTileData(from: columnIndex, task: task),
               child: Container(
                 //alignment: Alignment.centerLeft,
                 color: task.themeColor,

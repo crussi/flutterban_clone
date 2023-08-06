@@ -63,7 +63,7 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
   }
 
   @override
-  void dragHandler(KData data, int index) {
+  void dragHandler(KTileData data, int index) {
     print('bloc page dragHandler index: $index data: ${data.toString()}');
     context.read<KanbanBloc>().add(KanbanEvent.moveTask(data, index));
   }

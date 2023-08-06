@@ -22,7 +22,7 @@ mixin _$KanbanEvent {
     required TResult Function(String title) addColumn,
     required TResult Function(int column, KTask task) deleteTask,
     required TResult Function(int column, int from, int to) reorderTask,
-    required TResult Function(KData data, int column) moveTask,
+    required TResult Function(KTileData data, int column) moveTask,
     required TResult Function(int column, String title) addTask,
   }) =>
       throw _privateConstructorUsedError;
@@ -32,7 +32,7 @@ mixin _$KanbanEvent {
     TResult? Function(String title)? addColumn,
     TResult? Function(int column, KTask task)? deleteTask,
     TResult? Function(int column, int from, int to)? reorderTask,
-    TResult? Function(KData data, int column)? moveTask,
+    TResult? Function(KTileData data, int column)? moveTask,
     TResult? Function(int column, String title)? addTask,
   }) =>
       throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ mixin _$KanbanEvent {
     TResult Function(String title)? addColumn,
     TResult Function(int column, KTask task)? deleteTask,
     TResult Function(int column, int from, int to)? reorderTask,
-    TResult Function(KData data, int column)? moveTask,
+    TResult Function(KTileData data, int column)? moveTask,
     TResult Function(int column, String title)? addTask,
     required TResult orElse(),
   }) =>
@@ -140,7 +140,7 @@ class _$GetColumns implements GetColumns {
     required TResult Function(String title) addColumn,
     required TResult Function(int column, KTask task) deleteTask,
     required TResult Function(int column, int from, int to) reorderTask,
-    required TResult Function(KData data, int column) moveTask,
+    required TResult Function(KTileData data, int column) moveTask,
     required TResult Function(int column, String title) addTask,
   }) {
     return getColumns();
@@ -153,7 +153,7 @@ class _$GetColumns implements GetColumns {
     TResult? Function(String title)? addColumn,
     TResult? Function(int column, KTask task)? deleteTask,
     TResult? Function(int column, int from, int to)? reorderTask,
-    TResult? Function(KData data, int column)? moveTask,
+    TResult? Function(KTileData data, int column)? moveTask,
     TResult? Function(int column, String title)? addTask,
   }) {
     return getColumns?.call();
@@ -166,7 +166,7 @@ class _$GetColumns implements GetColumns {
     TResult Function(String title)? addColumn,
     TResult Function(int column, KTask task)? deleteTask,
     TResult Function(int column, int from, int to)? reorderTask,
-    TResult Function(KData data, int column)? moveTask,
+    TResult Function(KTileData data, int column)? moveTask,
     TResult Function(int column, String title)? addTask,
     required TResult orElse(),
   }) {
@@ -292,7 +292,7 @@ class _$AddColumn implements AddColumn {
     required TResult Function(String title) addColumn,
     required TResult Function(int column, KTask task) deleteTask,
     required TResult Function(int column, int from, int to) reorderTask,
-    required TResult Function(KData data, int column) moveTask,
+    required TResult Function(KTileData data, int column) moveTask,
     required TResult Function(int column, String title) addTask,
   }) {
     return addColumn(title);
@@ -305,7 +305,7 @@ class _$AddColumn implements AddColumn {
     TResult? Function(String title)? addColumn,
     TResult? Function(int column, KTask task)? deleteTask,
     TResult? Function(int column, int from, int to)? reorderTask,
-    TResult? Function(KData data, int column)? moveTask,
+    TResult? Function(KTileData data, int column)? moveTask,
     TResult? Function(int column, String title)? addTask,
   }) {
     return addColumn?.call(title);
@@ -318,7 +318,7 @@ class _$AddColumn implements AddColumn {
     TResult Function(String title)? addColumn,
     TResult Function(int column, KTask task)? deleteTask,
     TResult Function(int column, int from, int to)? reorderTask,
-    TResult Function(KData data, int column)? moveTask,
+    TResult Function(KTileData data, int column)? moveTask,
     TResult Function(int column, String title)? addTask,
     required TResult orElse(),
   }) {
@@ -467,7 +467,7 @@ class _$DeleteTask implements DeleteTask {
     required TResult Function(String title) addColumn,
     required TResult Function(int column, KTask task) deleteTask,
     required TResult Function(int column, int from, int to) reorderTask,
-    required TResult Function(KData data, int column) moveTask,
+    required TResult Function(KTileData data, int column) moveTask,
     required TResult Function(int column, String title) addTask,
   }) {
     return deleteTask(column, task);
@@ -480,7 +480,7 @@ class _$DeleteTask implements DeleteTask {
     TResult? Function(String title)? addColumn,
     TResult? Function(int column, KTask task)? deleteTask,
     TResult? Function(int column, int from, int to)? reorderTask,
-    TResult? Function(KData data, int column)? moveTask,
+    TResult? Function(KTileData data, int column)? moveTask,
     TResult? Function(int column, String title)? addTask,
   }) {
     return deleteTask?.call(column, task);
@@ -493,7 +493,7 @@ class _$DeleteTask implements DeleteTask {
     TResult Function(String title)? addColumn,
     TResult Function(int column, KTask task)? deleteTask,
     TResult Function(int column, int from, int to)? reorderTask,
-    TResult Function(KData data, int column)? moveTask,
+    TResult Function(KTileData data, int column)? moveTask,
     TResult Function(int column, String title)? addTask,
     required TResult orElse(),
   }) {
@@ -641,7 +641,7 @@ class _$ReorderTask implements ReorderTask {
     required TResult Function(String title) addColumn,
     required TResult Function(int column, KTask task) deleteTask,
     required TResult Function(int column, int from, int to) reorderTask,
-    required TResult Function(KData data, int column) moveTask,
+    required TResult Function(KTileData data, int column) moveTask,
     required TResult Function(int column, String title) addTask,
   }) {
     return reorderTask(column, from, to);
@@ -654,7 +654,7 @@ class _$ReorderTask implements ReorderTask {
     TResult? Function(String title)? addColumn,
     TResult? Function(int column, KTask task)? deleteTask,
     TResult? Function(int column, int from, int to)? reorderTask,
-    TResult? Function(KData data, int column)? moveTask,
+    TResult? Function(KTileData data, int column)? moveTask,
     TResult? Function(int column, String title)? addTask,
   }) {
     return reorderTask?.call(column, from, to);
@@ -667,7 +667,7 @@ class _$ReorderTask implements ReorderTask {
     TResult Function(String title)? addColumn,
     TResult Function(int column, KTask task)? deleteTask,
     TResult Function(int column, int from, int to)? reorderTask,
-    TResult Function(KData data, int column)? moveTask,
+    TResult Function(KTileData data, int column)? moveTask,
     TResult Function(int column, String title)? addTask,
     required TResult orElse(),
   }) {
@@ -739,9 +739,9 @@ abstract class _$$MoveTaskCopyWith<$Res> {
           _$MoveTask value, $Res Function(_$MoveTask) then) =
       __$$MoveTaskCopyWithImpl<$Res>;
   @useResult
-  $Res call({KData data, int column});
+  $Res call({KTileData data, int column});
 
-  $KDataCopyWith<$Res> get data;
+  $KTileDataCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -761,7 +761,7 @@ class __$$MoveTaskCopyWithImpl<$Res>
       null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as KData,
+              as KTileData,
       null == column
           ? _value.column
           : column // ignore: cast_nullable_to_non_nullable
@@ -771,8 +771,8 @@ class __$$MoveTaskCopyWithImpl<$Res>
 
   @override
   @pragma('vm:prefer-inline')
-  $KDataCopyWith<$Res> get data {
-    return $KDataCopyWith<$Res>(_value.data, (value) {
+  $KTileDataCopyWith<$Res> get data {
+    return $KTileDataCopyWith<$Res>(_value.data, (value) {
       return _then(_value.copyWith(data: value));
     });
   }
@@ -784,7 +784,7 @@ class _$MoveTask implements MoveTask {
   const _$MoveTask(this.data, this.column);
 
   @override
-  final KData data;
+  final KTileData data;
   @override
   final int column;
 
@@ -818,7 +818,7 @@ class _$MoveTask implements MoveTask {
     required TResult Function(String title) addColumn,
     required TResult Function(int column, KTask task) deleteTask,
     required TResult Function(int column, int from, int to) reorderTask,
-    required TResult Function(KData data, int column) moveTask,
+    required TResult Function(KTileData data, int column) moveTask,
     required TResult Function(int column, String title) addTask,
   }) {
     return moveTask(data, column);
@@ -831,7 +831,7 @@ class _$MoveTask implements MoveTask {
     TResult? Function(String title)? addColumn,
     TResult? Function(int column, KTask task)? deleteTask,
     TResult? Function(int column, int from, int to)? reorderTask,
-    TResult? Function(KData data, int column)? moveTask,
+    TResult? Function(KTileData data, int column)? moveTask,
     TResult? Function(int column, String title)? addTask,
   }) {
     return moveTask?.call(data, column);
@@ -844,7 +844,7 @@ class _$MoveTask implements MoveTask {
     TResult Function(String title)? addColumn,
     TResult Function(int column, KTask task)? deleteTask,
     TResult Function(int column, int from, int to)? reorderTask,
-    TResult Function(KData data, int column)? moveTask,
+    TResult Function(KTileData data, int column)? moveTask,
     TResult Function(int column, String title)? addTask,
     required TResult orElse(),
   }) {
@@ -899,9 +899,9 @@ class _$MoveTask implements MoveTask {
 }
 
 abstract class MoveTask implements KanbanEvent {
-  const factory MoveTask(final KData data, final int column) = _$MoveTask;
+  const factory MoveTask(final KTileData data, final int column) = _$MoveTask;
 
-  KData get data;
+  KTileData get data;
   int get column;
   @JsonKey(ignore: true)
   _$$MoveTaskCopyWith<_$MoveTask> get copyWith =>
@@ -982,7 +982,7 @@ class _$AddTask implements AddTask {
     required TResult Function(String title) addColumn,
     required TResult Function(int column, KTask task) deleteTask,
     required TResult Function(int column, int from, int to) reorderTask,
-    required TResult Function(KData data, int column) moveTask,
+    required TResult Function(KTileData data, int column) moveTask,
     required TResult Function(int column, String title) addTask,
   }) {
     return addTask(column, title);
@@ -995,7 +995,7 @@ class _$AddTask implements AddTask {
     TResult? Function(String title)? addColumn,
     TResult? Function(int column, KTask task)? deleteTask,
     TResult? Function(int column, int from, int to)? reorderTask,
-    TResult? Function(KData data, int column)? moveTask,
+    TResult? Function(KTileData data, int column)? moveTask,
     TResult? Function(int column, String title)? addTask,
   }) {
     return addTask?.call(column, title);
@@ -1008,7 +1008,7 @@ class _$AddTask implements AddTask {
     TResult Function(String title)? addColumn,
     TResult Function(int column, KTask task)? deleteTask,
     TResult Function(int column, int from, int to)? reorderTask,
-    TResult Function(KData data, int column)? moveTask,
+    TResult Function(KTileData data, int column)? moveTask,
     TResult Function(int column, String title)? addTask,
     required TResult orElse(),
   }) {

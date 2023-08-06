@@ -44,7 +44,7 @@ class KanbanColumn extends StatelessWidget {
           ),
         ),
         Positioned.fill(
-          child: DragTarget<KData>(
+          child: DragTarget<KTileData>(
             onWillAccept: (data) {
               return true;
             },
@@ -98,9 +98,7 @@ class KanbanColumn extends StatelessWidget {
 
   Widget _buildListItemsColumn() {
     return Expanded(
-      
       child: ReorderableListView(
-        
         //buildDefaultDragHandles: false,
         proxyDecorator: proxyDecorator,
         onReorderEnd: (index) => {print('onReorderEnd index: $index')},

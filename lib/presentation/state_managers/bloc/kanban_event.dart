@@ -12,6 +12,6 @@ class KanbanEvent with _$KanbanEvent {
   const factory KanbanEvent.deleteTask(int column, KTask task) = DeleteTask;
   const factory KanbanEvent.reorderTask(int column, int from, int to) =
       ReorderTask;
-  const factory KanbanEvent.moveTask(KData data, int column) = MoveTask;
+  const factory KanbanEvent.moveTask(KTileData data, int column) = MoveTask;
   const factory KanbanEvent.addTask(int column, String title) = AddTask;
 }
