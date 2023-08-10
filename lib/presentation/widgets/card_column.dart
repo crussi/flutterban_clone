@@ -17,6 +17,8 @@ class CardColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+      //margin: const EdgeInsets.only(bottom: 20.0),
       width: width,
       decoration: BoxDecoration(
         boxShadow: const [

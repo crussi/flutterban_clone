@@ -1,12 +1,9 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
+import 'package:uuid/uuid.dart';
 import '../../models/column.dart';
 import '../pages/kanban_board_controller.dart';
-import 'add_column_button_widget.dart';
 import 'add_column_widget.dart';
-import 'add_task_widget.dart';
 import 'column_widget.dart';
 
 Widget proxyDecorator(Widget child, int index, Animation<double> animation) {
@@ -31,13 +28,14 @@ class KanbanBoard extends StatefulWidget {
   final KanbanBoardController controller;
   final List<KColumn> columns;
   final Function reorderHandler;
+  final Function addTaskHandler;
 
-  const KanbanBoard({
-    super.key,
-    required this.controller,
-    required this.columns,
-    required this.reorderHandler,
-  });
+  const KanbanBoard(
+      {super.key,
+      required this.controller,
+      required this.columns,
+      required this.reorderHandler,
+      required this.addTaskHandler});
 
   @override
   State<KanbanBoard> createState() => _KanbanBoardState();
@@ -45,10 +43,13 @@ class KanbanBoard extends StatefulWidget {
 
 class _KanbanBoardState extends State<KanbanBoard> {
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _textController = TextEditingController();
+  final uuid = const Uuid();
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _textController.dispose();
     super.dispose();
   }
 
@@ -65,7 +66,8 @@ class _KanbanBoardState extends State<KanbanBoard> {
         // implement add column: widget.columns.length + 1
         for (int index = 0; index < widget.columns.length; index++)
           Container(
-            key: ValueKey(widget.columns[index]),
+            //key: ValueKey(widget.columns[index]),
+            key: Key(uuid.v4()),
             margin: const EdgeInsets.all(10),
             child: KanbanColumn(
               column: widget.columns[index],
@@ -112,24 +114,90 @@ class _KanbanBoardState extends State<KanbanBoard> {
     );
   }
 
+  // void _showAddTask(int index) {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     backgroundColor: Colors.white,
+  //     clipBehavior: Clip.hardEdge,
+  //     shape: const RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.only(
+  //         topLeft: Radius.circular(10),
+  //         topRight: Radius.circular(10),
+  //       ),
+  //     ),
+  //     builder: (context) => AddTaskForm(
+  //       addTaskHandler: (String title) {
+  //         widget.controller.addTask(title, index);
+  //       },
+  //     ),
+  //   );
+  // }
+
   void _showAddTask(int index) {
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.white,
-      clipBehavior: Clip.hardEdge,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
-      ),
-      builder: (context) => AddTaskForm(
-        addTaskHandler: (String title) {
-          widget.controller.addTask(title, index);
-        },
-      ),
-    );
+      builder: (context) {
+        return Form(
+          child: AlertDialog(
+            title: const Text(
+              'Add Task',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+                color: Colors.black54,
+              ),
+            ),
+            content: Container(
+              width: 400.0,
+              height: 200.0,
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: TextFormField(
+                autofocus: true,
+                decoration: const InputDecoration(
+                  hintText: 'Task Title',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'Please enter a title';
+                  }
+                  return null;
+                },
+                controller: _textController,
+              ),
+            ),
+            actions: [
+              MaterialButton(
+                height: 45.0,
+                minWidth: 90.0,
+                color: Colors.grey,
+                textColor: Colors.white,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                splashColor: Colors.black12,
+                child: const Text("Cancel"),
+              ),
+              MaterialButton(
+                height: 45.0,
+                minWidth: 90.0,
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                onPressed: () {
+                  if (_textController.text.isNotEmpty) {
+                    Navigator.of(context).pop();
+                    widget.addTaskHandler(_textController.text.trim(), index);
+                  }
+                },
+                splashColor: Colors.black12,
+                child: const Text("Add"),
+              )
+            ],
+          ),
+        );
+      },
+    ).then((value) => _textController.clear());
   }
 
   void _dragListener(DragUpdateDetails details) {

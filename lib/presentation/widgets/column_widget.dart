@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../models/models.dart';
 import 'card_column.dart';
@@ -14,6 +15,7 @@ class KanbanColumn extends StatelessWidget {
   final Function addTaskHandler;
   final Function(DragUpdateDetails) dragListener;
   final Function deleteItemHandler;
+  final uuid = const Uuid();
 
   const KanbanColumn({
     super.key,
@@ -32,7 +34,7 @@ class KanbanColumn extends StatelessWidget {
       children: <Widget>[
         CardColumn(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -106,7 +108,7 @@ class KanbanColumn extends StatelessWidget {
         children: [
           for (final task in column.children)
             TaskCard(
-              key: ValueKey(task),
+              key: Key(uuid.v4()),
               task: task,
               columnIndex: index,
               dragListener: dragListener,

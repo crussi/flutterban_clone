@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/models.dart';
 import '../state_managers/bloc/kanban_bloc.dart';
+import '../widgets/add_column_widget.dart';
 import '../widgets/kanban_board.dart';
 import '../widgets/progress_indicator.dart';
 import 'kanban_board_controller.dart';
@@ -19,9 +20,47 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Personal Kanban'),
-      ),
+      appBar: AppBar(title: const Text('Personal Kanban'), actions: <Widget>[
+        IconButton(
+          icon: const Icon(
+            Icons.add_circle_outline,
+            color: Colors.white,
+            size: 24.0,
+          ),
+          tooltip: 'Add Column',
+          onPressed: () {
+            _showAddColumn();
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     const SnackBar(content: Text('This is a snackbar')));
+          },
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.add_box,
+            color: Colors.white,
+            size: 24.0,
+          ),
+          tooltip: 'Add Column',
+          onPressed: () {
+            _showAddColumn();
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     const SnackBar(content: Text('This is a snackbar')));
+          },
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.add_circle,
+            color: Colors.white,
+            size: 24.0,
+          ),
+          tooltip: 'Add Column',
+          onPressed: () {
+            _showAddColumn();
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     const SnackBar(content: Text('This is a snackbar')));
+          },
+        ),
+      ]),
       body: SafeArea(
         child: BlocBuilder<KanbanBloc, KanbanState>(
           builder: (context, state) {
@@ -36,6 +75,7 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
                     controller: this,
                     columns: state.columns,
                     reorderHandler: handleColumnReOrder,
+                    addTaskHandler: addTask,
                   );
                 } else {
                   return const SizedBox.shrink();
@@ -88,5 +128,23 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
   void addTask(String title, int column) {
     print('bloc page addTask column: $column title: $title');
     context.read<KanbanBloc>().add(KanbanEvent.addTask(column, title));
+  }
+
+  void _showAddColumn() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      clipBehavior: Clip.hardEdge,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
+      builder: (context) => AddColumnForm(
+        addColumnHandler: addColumn,
+      ),
+    );
   }
 }
