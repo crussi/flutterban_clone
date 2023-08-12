@@ -2,11 +2,8 @@ import 'package:bloc/bloc.dart';
 
 import '../../../data/data.dart';
 import '../../../models/models.dart';
-//import 'package:intl/intl.dart';
-import '../../../utils/theme.dart';
 import 'kanban_event.dart';
 import 'kanban_state.dart';
-
 export 'kanban_event.dart';
 export 'kanban_state.dart';
 
@@ -32,17 +29,6 @@ class KanbanBloc extends Bloc<KanbanEvent, KanbanState> {
             title: title,
             children: List.of([]),
           ));
-          emit(
-            currentState.copyWith(
-              columns: updatedColumns,
-              status: Status.loaded,
-            ),
-          );
-        },
-        deleteTask: (column, task) {
-          print('deleteTask column: $column task: ${task.toString()}');
-          final updatedColumns = currentState.columns;
-          updatedColumns[column].children.remove(task);
           emit(
             currentState.copyWith(
               columns: updatedColumns,
@@ -98,14 +84,44 @@ class KanbanBloc extends Bloc<KanbanEvent, KanbanState> {
             ),
           );
         },
-        addTask: (column, title) {
-          print('addTask column: $column title: $title');
+        addTask: (column, task) {
+          print('addTask column: $column title: $task.title');
           final updatedColumns = currentState.copyWith().columns;
-          updatedColumns[column].children.add(KTask(
-              title: title, description: 'description', themeColor: lightBlue));
+          updatedColumns[column].children.add(task);
           final newState = state.copyWith(
               columns: List.of(updatedColumns), status: Status.loaded);
           emit(newState);
+        },
+        updateTask: (column, task) {
+          print('updateTask column: $column task: ${task.toString()}');
+          final updatedColumns = currentState.columns;
+
+          // Find the index of the old task in the column by matching its id
+          final index = updatedColumns[column]
+              .children
+              .indexWhere((oldTask) => oldTask.id == task.id);
+          // Replace the old task with the new one
+          updatedColumns[column]
+              .children
+              .replaceRange(index, index + 1, [task]);
+
+          emit(
+            currentState.copyWith(
+              columns: updatedColumns,
+              status: Status.loaded,
+            ),
+          );
+        },
+        deleteTask: (column, task) {
+          print('deleteTask column: $column task: ${task.toString()}');
+          final updatedColumns = currentState.columns;
+          updatedColumns[column].children.remove(task);
+          emit(
+            currentState.copyWith(
+              columns: updatedColumns,
+              status: Status.loaded,
+            ),
+          );
         },
       );
     });

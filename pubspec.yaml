@@ -13,9 +13,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
-  freezed_annotation: ^2.2.0
-  flutter_mobx: ^2.0.6+5
-  provider: ^6.0.5
   sidebarx: ^0.16.1
   google_fonts: ^5.1.0
   uuid: ^3.0.7
@@ -26,7 +23,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.3.2
-  mobx_codegen: ^2.2.0
+  json_serializable: ^6.7.1
 
 flutter:
   uses-material-design: true

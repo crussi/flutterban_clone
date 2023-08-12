@@ -1,7 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import '../../misc/enums.dart';
 import '../../models/column.dart';
+import '../../models/task.dart';
 import '../pages/kanban_board_controller.dart';
 import 'add_column_widget.dart';
 import 'column_widget.dart';
@@ -29,13 +31,17 @@ class KanbanBoard extends StatefulWidget {
   final List<KColumn> columns;
   final Function reorderHandler;
   final Function addTaskHandler;
+  final Function updateTaskHandler;
+  final Function deleteTaskHandler;
 
   const KanbanBoard(
       {super.key,
       required this.controller,
       required this.columns,
       required this.reorderHandler,
-      required this.addTaskHandler});
+      required this.addTaskHandler,
+      required this.updateTaskHandler,
+      required this.deleteTaskHandler});
 
   @override
   State<KanbanBoard> createState() => _KanbanBoardState();
@@ -44,6 +50,13 @@ class KanbanBoard extends StatefulWidget {
 class _KanbanBoardState extends State<KanbanBoard> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _textController = TextEditingController();
+  // Define a key for the form
+  final _formKey = GlobalKey<FormState>();
+
+  // Define controllers for each text field
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
+
   final uuid = const Uuid();
 
   @override
@@ -74,9 +87,9 @@ class _KanbanBoardState extends State<KanbanBoard> {
               index: index,
               dragHandler: widget.controller.dragHandler,
               reorderHandler: widget.controller.handleTileReOrder,
-              addTaskHandler: _showAddTask,
+              editTaskHandler: _displayEditTask,
               dragListener: _dragListener,
-              deleteItemHandler: widget.controller.deleteItem,
+              deleteItemHandler: widget.controller.deleteTask,
             ),
           ),
       ],
@@ -134,15 +147,22 @@ class _KanbanBoardState extends State<KanbanBoard> {
   //   );
   // }
 
-  void _showAddTask(int index) {
+// Define a function to display the edit task dialog
+  void _displayEditTask(int index, KTask task, ActionEnum action) {
+    // Set the initial values from the task object
+    _titleController.text = task.title;
+    _descriptionController.text = task.description;
+
+    // Show the dialog with the form widget
     showDialog(
       context: context,
       builder: (context) {
         return Form(
+          key: _formKey,
           child: AlertDialog(
-            title: const Text(
-              'Add Task',
-              style: TextStyle(
+            title: Text(
+              "${action.toString().split('.').last.toUpperCase()} Task",
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
                 color: Colors.black54,
@@ -152,32 +172,49 @@ class _KanbanBoardState extends State<KanbanBoard> {
               width: 400.0,
               height: 200.0,
               margin: const EdgeInsets.symmetric(vertical: 8.0),
-              child: TextFormField(
-                autofocus: true,
-                decoration: const InputDecoration(
-                  hintText: 'Task Title',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'Please enter a title';
-                  }
-                  return null;
-                },
-                controller: _textController,
+              child: Column(
+                children: <Widget>[
+                  // Title text field
+                  TextFormField(
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                      hintText: 'Task Title',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Please enter a title';
+                      }
+                      return null;
+                    },
+                    controller: _titleController,
+                  ),
+                  // Description text field
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Task Description',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Please enter a description';
+                      }
+                      return null;
+                    },
+                    controller: _descriptionController,
+                  ),
+                ],
               ),
             ),
             actions: [
-              MaterialButton(
-                height: 45.0,
-                minWidth: 90.0,
-                color: Colors.grey,
-                textColor: Colors.white,
+              OutlinedButton(
                 onPressed: () {
+                  // Reset the form to the initial values
+                  _formKey.currentState!.reset();
+                  // Navigate back to the previous screen
                   Navigator.of(context).pop();
                 },
-                splashColor: Colors.black12,
-                child: const Text("Cancel"),
+                child: const Text('Cancel'),
               ),
               MaterialButton(
                 height: 45.0,
@@ -185,20 +222,88 @@ class _KanbanBoardState extends State<KanbanBoard> {
                 color: Theme.of(context).primaryColor,
                 textColor: Colors.white,
                 onPressed: () {
-                  if (_textController.text.isNotEmpty) {
+                  // Check if the form is valid
+                  if (_formKey.currentState!.validate()) {
+                    // Save the changes to the task object
+                    task.title = _titleController.text.trim();
+                    task.description = _descriptionController.text.trim();
+                    // Call the addTaskHandler function with the updated task object and index
+                    widget.addTaskHandler(index, task);
+                    // Navigate back to the previous screen
                     Navigator.of(context).pop();
-                    widget.addTaskHandler(_textController.text.trim(), index);
                   }
                 },
                 splashColor: Colors.black12,
-                child: const Text("Add"),
+                child: const Text("Save"),
               )
             ],
           ),
         );
       },
-    ).then((value) => _textController.clear());
+    ).then(
+        (value) => {_titleController.clear(), _descriptionController.clear()});
   }
+
+  // void _displayEditTask(int index, KTask task, ActionEnum action) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return Form(
+  //         child: AlertDialog(
+  //           title: Text(
+  //             "${action.toString().split('.').last.toUpperCase()} Task",
+  //             style: const TextStyle(
+  //               fontSize: 24,
+  //               fontWeight: FontWeight.w700,
+  //               color: Colors.black54,
+  //             ),
+  //           ),
+  //           content: Container(
+  //             width: 400.0,
+  //             height: 200.0,
+  //             margin: const EdgeInsets.symmetric(vertical: 8.0),
+  //             child: TextFormField(
+  //               autofocus: true,
+  //               decoration: const InputDecoration(
+  //                 hintText: 'Task Title',
+  //                 border: OutlineInputBorder(),
+  //               ),
+  //               validator: (value) {
+  //                 if (value?.isEmpty ?? true) {
+  //                   return 'Please enter a title';
+  //                 }
+  //                 return null;
+  //               },
+  //               controller: _textController,
+  //             ),
+  //           ),
+  //           actions: [
+  //             OutlinedButton(
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: const Text('Cancel'),
+  //             ),
+  //             MaterialButton(
+  //               height: 45.0,
+  //               minWidth: 90.0,
+  //               color: Theme.of(context).primaryColor,
+  //               textColor: Colors.white,
+  //               onPressed: () {
+  //                 if (_textController.text.isNotEmpty) {
+  //                   Navigator.of(context).pop();
+  //                   widget.addTaskHandler(_textController.text.trim(), index);
+  //                 }
+  //               },
+  //               splashColor: Colors.black12,
+  //               child: const Text("Save"),
+  //             )
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   ).then((value) => _textController.clear());
+  // }
 
   void _dragListener(DragUpdateDetails details) {
     if (details.localPosition.dx > MediaQuery.of(context).size.width - 40) {

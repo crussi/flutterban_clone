@@ -14,12 +14,24 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+KTask _$KTaskFromJson(Map<String, dynamic> json) {
+  return _KTask.fromJson(json);
+}
+
 /// @nodoc
 mixin _$KTask {
+  String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  set title(String value) => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  set description(String value) => throw _privateConstructorUsedError;
+  @ColorConverter()
   Color get themeColor => throw _privateConstructorUsedError;
+  @ColorConverter()
+  set themeColor(Color value) => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $KTaskCopyWith<KTask> get copyWith => throw _privateConstructorUsedError;
 }
@@ -29,7 +41,11 @@ abstract class $KTaskCopyWith<$Res> {
   factory $KTaskCopyWith(KTask value, $Res Function(KTask) then) =
       _$KTaskCopyWithImpl<$Res, KTask>;
   @useResult
-  $Res call({String title, String description, Color themeColor});
+  $Res call(
+      {String id,
+      String title,
+      String description,
+      @ColorConverter() Color themeColor});
 }
 
 /// @nodoc
@@ -45,11 +61,16 @@ class _$KTaskCopyWithImpl<$Res, $Val extends KTask>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? themeColor = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -72,7 +93,11 @@ abstract class _$$_KTaskCopyWith<$Res> implements $KTaskCopyWith<$Res> {
       __$$_KTaskCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, String description, Color themeColor});
+  $Res call(
+      {String id,
+      String title,
+      String description,
+      @ColorConverter() Color themeColor});
 }
 
 /// @nodoc
@@ -84,11 +109,16 @@ class __$$_KTaskCopyWithImpl<$Res> extends _$KTaskCopyWithImpl<$Res, _$_KTask>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? themeColor = null,
   }) {
     return _then(_$_KTask(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -106,59 +136,72 @@ class __$$_KTaskCopyWithImpl<$Res> extends _$KTaskCopyWithImpl<$Res, _$_KTask>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_KTask implements _KTask {
-  const _$_KTask(
-      {required this.title,
-      required this.description,
-      required this.themeColor});
+  _$_KTask(
+      {required this.id,
+      this.title = '',
+      this.description = '',
+      @ColorConverter() this.themeColor = lightBlue});
+
+  factory _$_KTask.fromJson(Map<String, dynamic> json) =>
+      _$$_KTaskFromJson(json);
 
   @override
-  final String title;
+  String id;
   @override
-  final String description;
+  @JsonKey()
+  String title;
   @override
-  final Color themeColor;
+  @JsonKey()
+  String description;
+  @override
+  @JsonKey()
+  @ColorConverter()
+  Color themeColor;
 
   @override
   String toString() {
-    return 'KTask(title: $title, description: $description, themeColor: $themeColor)';
+    return 'KTask(id: $id, title: $title, description: $description, themeColor: $themeColor)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_KTask &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.themeColor, themeColor) ||
-                other.themeColor == themeColor));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, title, description, themeColor);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_KTaskCopyWith<_$_KTask> get copyWith =>
       __$$_KTaskCopyWithImpl<_$_KTask>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_KTaskToJson(
+      this,
+    );
+  }
 }
 
 abstract class _KTask implements KTask {
-  const factory _KTask(
-      {required final String title,
-      required final String description,
-      required final Color themeColor}) = _$_KTask;
+  factory _KTask(
+      {required String id,
+      String title,
+      String description,
+      @ColorConverter() Color themeColor}) = _$_KTask;
+
+  factory _KTask.fromJson(Map<String, dynamic> json) = _$_KTask.fromJson;
 
   @override
+  String get id;
+  set id(String value);
+  @override
   String get title;
+  set title(String value);
   @override
   String get description;
+  set description(String value);
   @override
+  @ColorConverter()
   Color get themeColor;
+  @ColorConverter()
+  set themeColor(Color value);
   @override
   @JsonKey(ignore: true)
   _$$_KTaskCopyWith<_$_KTask> get copyWith =>

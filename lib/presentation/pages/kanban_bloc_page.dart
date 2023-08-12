@@ -76,6 +76,8 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
                     columns: state.columns,
                     reorderHandler: handleColumnReOrder,
                     addTaskHandler: addTask,
+                    updateTaskHandler: updateTask,
+                    deleteTaskHandler: deleteTask,
                   );
                 } else {
                   return const SizedBox.shrink();
@@ -85,13 +87,6 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
         ),
       ),
     );
-  }
-
-  @override
-  void deleteItem(int columnIndex, KTask task) {
-    print(
-        'bloc page deleteItem columnIndex: $columnIndex task: ${task.toString()}');
-    context.read<KanbanBloc>().add(KanbanEvent.deleteTask(columnIndex, task));
   }
 
   @override
@@ -125,9 +120,22 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
   }
 
   @override
-  void addTask(String title, int column) {
-    print('bloc page addTask column: $column title: $title');
-    context.read<KanbanBloc>().add(KanbanEvent.addTask(column, title));
+  void addTask(int column, KTask task) {
+    print('bloc page addTask column: $column title: $task.title');
+    context.read<KanbanBloc>().add(KanbanEvent.addTask(column, task));
+  }
+
+  @override
+  void updateTask(int column, KTask task) {
+    print('bloc page editTask column: $column title: $task.title');
+    context.read<KanbanBloc>().add(KanbanEvent.updateTask(column, task));
+  }
+
+  @override
+  void deleteTask(int columnIndex, KTask task) {
+    print(
+        'bloc page deleteItem columnIndex: $columnIndex task: ${task.toString()}');
+    context.read<KanbanBloc>().add(KanbanEvent.deleteTask(columnIndex, task));
   }
 
   void _showAddColumn() {

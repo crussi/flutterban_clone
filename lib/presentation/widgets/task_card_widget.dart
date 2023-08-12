@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../models/models.dart';
 import '../../utils/theme.dart';
-// import 'taks_menu.widget.dart';
-// import 'task_text_widget.dart';
 
 class TaskCard extends StatelessWidget {
   final KTask task;
@@ -62,26 +59,31 @@ class TaskCard extends StatelessWidget {
               ),
               childWhenDragging: Container(color: Colors.black12),
               data: KTileData(from: columnIndex, task: task),
-              child: Container(
-                //alignment: Alignment.centerLeft,
-                color: task.themeColor,
-                child: ListTile(
-                  dense: true,
-                  title: Text(
-                    task.title,
-                    style: const TextStyle(
-                      color: darkGrey,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  subtitle: Text(task.description,
+              child: GestureDetector(
+                onDoubleTap: () {
+                  print('I got double tapped');
+                },
+                child: Container(
+                  //alignment: Alignment.centerLeft,
+                  color: task.themeColor,
+                  child: ListTile(
+                    dense: true,
+                    title: Text(
+                      task.title,
                       style: const TextStyle(
                         color: darkGrey,
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w500,
-                      )),
-                  isThreeLine: true,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(task.description,
+                        style: const TextStyle(
+                          color: darkGrey,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    isThreeLine: true,
+                  ),
                 ),
               ),
             ));

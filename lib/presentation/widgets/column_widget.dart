@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../misc/enums.dart';
 import '../../models/models.dart';
 import 'card_column.dart';
 import 'task_card_widget.dart';
@@ -12,7 +13,7 @@ class KanbanColumn extends StatelessWidget {
   final int index;
   final Function dragHandler;
   final Function reorderHandler;
-  final Function addTaskHandler;
+  final Function editTaskHandler;
   final Function(DragUpdateDetails) dragListener;
   final Function deleteItemHandler;
   final uuid = const Uuid();
@@ -23,7 +24,7 @@ class KanbanColumn extends StatelessWidget {
     required this.index,
     required this.dragHandler,
     required this.reorderHandler,
-    required this.addTaskHandler,
+    required this.editTaskHandler,
     required this.dragListener,
     required this.deleteItemHandler,
   });
@@ -108,7 +109,7 @@ class KanbanColumn extends StatelessWidget {
         children: [
           for (final task in column.children)
             TaskCard(
-              key: Key(uuid.v4()),
+              key: Key(task.id),
               task: task,
               columnIndex: index,
               dragListener: dragListener,
@@ -138,7 +139,7 @@ class KanbanColumn extends StatelessWidget {
     return ListTile(
       dense: true,
       onTap: () {
-        addTaskHandler(index);
+        editTaskHandler(index, KTask.newTask(), ActionEnum.add);
       },
       trailing: const Tooltip(
           message: 'Add Task',
