@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '../../misc/enums.dart';
+import '../../misc/extensions.dart';
 import '../../models/column.dart';
 import '../../models/task.dart';
 import '../pages/kanban_board_controller.dart';
@@ -147,163 +148,285 @@ class _KanbanBoardState extends State<KanbanBoard> {
   //   );
   // }
 
-// Define a function to display the edit task dialog
   void _displayEditTask(int index, KTask task, ActionEnum action) {
     // Set the initial values from the task object
     _titleController.text = task.title;
     _descriptionController.text = task.description;
 
-    // Show the dialog with the form widget
+    final ButtonStyle saveStyle = ElevatedButton.styleFrom(
+      textStyle: const TextStyle(fontSize: 17),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4.0),
+      ),
+      foregroundColor: Colors.white,
+      backgroundColor: Theme.of(context).primaryColor,
+      minimumSize: const Size(90.0, 49.0),
+    );
+
+    final ButtonStyle cancelStyle = OutlinedButton.styleFrom(
+      side: const BorderSide(
+        width: 2.0,
+        color: Colors.black12,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+      ),
+    );
+
+    final ButtonStyle deleteStyle = TextButton.styleFrom(
+      textStyle: const TextStyle(fontSize: 17),
+    );
+
     showDialog(
       context: context,
       builder: (context) {
-        return Form(
-          key: _formKey,
-          child: AlertDialog(
-            title: Text(
-              "${action.toString().split('.').last.toUpperCase()} Task",
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
-                color: Colors.black54,
-              ),
-            ),
-            content: Container(
-              width: 400.0,
-              height: 200.0,
-              margin: const EdgeInsets.symmetric(vertical: 8.0),
+        return Dialog(
+          child: Form(
+            key: _formKey,
+            child: SizedBox(
+              width: 500.0,
+              height: 310.0,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 20.0, bottom: 10.0),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "${action.toString().split('.').last.capitalize()} Task",
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: TextButton(
+                          style: deleteStyle,
+                          onPressed: () {
+                            print('delete');
+                          },
+                          child: const Row(
+                            children: [
+                              Text('Delete'),
+                              Padding(
+                                padding: EdgeInsets.only(left: 10.0),
+                                child: Icon(
+                                  Icons.cancel_outlined,
+                                  color: Colors.black45,
+                                  size: 24.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   // Title text field
-                  TextFormField(
-                    autofocus: true,
-                    decoration: const InputDecoration(
-                      hintText: 'Task Title',
-                      border: OutlineInputBorder(),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 20.0, right: 20.0, top: 10.0, bottom: 5.0),
+                    child: TextFormField(
+                      autofocus: true,
+                      decoration: const InputDecoration(
+                        hintText: 'Task Title',
+                        border: OutlineInputBorder(),
+                        helperText: " ",
+                        //helperStyle: TextStyle()
+                      ), //hides validation error
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return 'Please enter a title';
+                        }
+                        return null;
+                      },
+                      controller: _titleController,
                     ),
-                    validator: (value) {
-                      if (value?.isEmpty ?? true) {
-                        return 'Please enter a title';
-                      }
-                      return null;
-                    },
-                    controller: _titleController,
                   ),
                   // Description text field
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Task Description',
-                      border: OutlineInputBorder(),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 20.0, right: 20.0, top: 5.0, bottom: 5.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Task Description',
+                        border: OutlineInputBorder(),
+                        helperText: " ",
+                      ),
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return 'Please enter a description';
+                        }
+                        return null;
+                      },
+                      controller: _descriptionController,
                     ),
-                    validator: (value) {
-                      if (value?.isEmpty ?? true) {
-                        return 'Please enter a description';
-                      }
-                      return null;
-                    },
-                    controller: _descriptionController,
+                  ), // Buttons row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 90,
+                          height: 45,
+                          child: OutlinedButton(
+                            style: cancelStyle,
+                            onPressed: () {
+                              // Clear the text fields and close dialog
+                              _titleController.clear();
+                              _descriptionController.clear();
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancel'),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 20.0, top: 8.0, bottom: 8.0),
+                        child: ElevatedButton(
+                          style: saveStyle,
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              // Save the changes to the task object
+                              task.title = _titleController.text.trim();
+                              task.description =
+                                  _descriptionController.text.trim();
+                              if (action == ActionEnum.add) {
+                                // Call the addTaskHandler function with the updated task object and index
+                                widget.addTaskHandler(index, task);
+                              } else if (action == ActionEnum.edit) {
+                                widget.updateTaskHandler(index, task);
+                              }
+                              // Navigate back to the previous screen
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          child: const Text('Save'),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-            actions: [
-              OutlinedButton(
-                onPressed: () {
-                  // Reset the form to the initial values
-                  _formKey.currentState!.reset();
-                  // Navigate back to the previous screen
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancel'),
-              ),
-              MaterialButton(
-                height: 45.0,
-                minWidth: 90.0,
-                color: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-                onPressed: () {
-                  // Check if the form is valid
-                  if (_formKey.currentState!.validate()) {
-                    // Save the changes to the task object
-                    task.title = _titleController.text.trim();
-                    task.description = _descriptionController.text.trim();
-                    // Call the addTaskHandler function with the updated task object and index
-                    widget.addTaskHandler(index, task);
-                    // Navigate back to the previous screen
-                    Navigator.of(context).pop();
-                  }
-                },
-                splashColor: Colors.black12,
-                child: const Text("Save"),
-              )
-            ],
           ),
         );
       },
-    ).then(
-        (value) => {_titleController.clear(), _descriptionController.clear()});
+    );
   }
 
-  // void _displayEditTask(int index, KTask task, ActionEnum action) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return Form(
-  //         child: AlertDialog(
-  //           title: Text(
-  //             "${action.toString().split('.').last.toUpperCase()} Task",
-  //             style: const TextStyle(
-  //               fontSize: 24,
-  //               fontWeight: FontWeight.w700,
-  //               color: Colors.black54,
-  //             ),
-  //           ),
-  //           content: Container(
-  //             width: 400.0,
-  //             height: 200.0,
-  //             margin: const EdgeInsets.symmetric(vertical: 8.0),
-  //             child: TextFormField(
-  //               autofocus: true,
-  //               decoration: const InputDecoration(
-  //                 hintText: 'Task Title',
-  //                 border: OutlineInputBorder(),
-  //               ),
-  //               validator: (value) {
-  //                 if (value?.isEmpty ?? true) {
-  //                   return 'Please enter a title';
-  //                 }
-  //                 return null;
-  //               },
-  //               controller: _textController,
-  //             ),
-  //           ),
-  //           actions: [
-  //             OutlinedButton(
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: const Text('Cancel'),
-  //             ),
-  //             MaterialButton(
-  //               height: 45.0,
-  //               minWidth: 90.0,
-  //               color: Theme.of(context).primaryColor,
-  //               textColor: Colors.white,
-  //               onPressed: () {
-  //                 if (_textController.text.isNotEmpty) {
-  //                   Navigator.of(context).pop();
-  //                   widget.addTaskHandler(_textController.text.trim(), index);
-  //                 }
-  //               },
-  //               splashColor: Colors.black12,
-  //               child: const Text("Save"),
-  //             )
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   ).then((value) => _textController.clear());
-  // }
+// // Define a function to display the edit task dialog
+//   void _displayEditTask(int index, KTask task, ActionEnum action) {
+//     // Set the initial values from the task object
+//     _titleController.text = task.title;
+//     _descriptionController.text = task.description;
+
+//     // Show the dialog with the form widget
+//     showDialog(
+//       context: context,
+//       builder: (context) {
+//         return Form(
+//           key: _formKey,
+//           child: AlertDialog(
+//             title: Text(
+//               "${action.toString().split('.').last.toUpperCase()} Task",
+//               style: const TextStyle(
+//                 fontSize: 24,
+//                 fontWeight: FontWeight.w700,
+//                 color: Colors.black54,
+//               ),
+//             ),
+//             content: Container(
+//               width: 400.0,
+//               height: 200.0,
+//               margin: const EdgeInsets.symmetric(vertical: 8.0),
+//               child: Column(
+//                 children: <Widget>[
+//                   // Title text field
+//                   Padding(
+//                     padding: const EdgeInsets.all(8.0),
+//                     child: TextFormField(
+//                       autofocus: true,
+//                       decoration: const InputDecoration(
+//                         hintText: 'Task Title',
+//                         border: OutlineInputBorder(),
+//                       ),
+//                       validator: (value) {
+//                         if (value?.isEmpty ?? true) {
+//                           return 'Please enter a title';
+//                         }
+//                         return null;
+//                       },
+//                       controller: _titleController,
+//                     ),
+//                   ),
+//                   // Description text field
+//                   Padding(
+//                     padding: const EdgeInsets.all(8.0),
+//                     child: TextFormField(
+//                       decoration: const InputDecoration(
+//                         hintText: 'Task Description',
+//                         border: OutlineInputBorder(),
+//                       ),
+//                       validator: (value) {
+//                         if (value?.isEmpty ?? true) {
+//                           return 'Please enter a description';
+//                         }
+//                         return null;
+//                       },
+//                       controller: _descriptionController,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             actions: [
+//               Row(
+//                 children: [
+//                   OutlinedButton(
+//                     style: OutlinedButton.styleFrom(
+//                       side: BorderSide(
+//                         width: 2.0,
+//                         color: Theme.of(context).primaryColor,
+//                       ),
+//                       shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(10),
+//                       ),
+//                       fixedSize: const Size(
+//                           90, 45), //change this width & height your requirnment
+//                     ),
+//                     onPressed: () {
+//                       // Reset the form to the initial values
+//                       _formKey.currentState!.reset();
+//                       // Navigate back to the previous screen
+//                       Navigator.of(context).pop();
+//                     },
+//                     child: const Align(
+//                       alignment: Alignment.centerLeft,
+//                       child: Text('Cancel'),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           ),
+//         );
+//       },
+//     ).then(
+//         (value) => {_titleController.clear(), _descriptionController.clear()});
+//   }
 
   void _dragListener(DragUpdateDetails details) {
     if (details.localPosition.dx > MediaQuery.of(context).size.width - 40) {

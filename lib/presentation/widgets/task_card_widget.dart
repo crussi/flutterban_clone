@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../misc/enums.dart';
 import '../../models/models.dart';
 import '../../utils/theme.dart';
 
@@ -6,6 +7,7 @@ class TaskCard extends StatelessWidget {
   final KTask task;
   final int columnIndex;
   final Function deleteItemHandler;
+  final Function editTaskHandler;
   final Function(DragUpdateDetails) dragListener;
 
   const TaskCard({
@@ -14,6 +16,7 @@ class TaskCard extends StatelessWidget {
     required this.columnIndex,
     required this.dragListener,
     required this.deleteItemHandler,
+    required this.editTaskHandler,
   });
 
   @override
@@ -61,7 +64,7 @@ class TaskCard extends StatelessWidget {
               data: KTileData(from: columnIndex, task: task),
               child: GestureDetector(
                 onDoubleTap: () {
-                  print('I got double tapped');
+                  editTaskHandler(columnIndex, task, ActionEnum.edit);
                 },
                 child: Container(
                   //alignment: Alignment.centerLeft,

@@ -114,6 +114,7 @@ class KanbanColumn extends StatelessWidget {
               columnIndex: index,
               dragListener: dragListener,
               deleteItemHandler: deleteItemHandler,
+              editTaskHandler: editTaskHandler
             )
         ],
       ),
