@@ -152,6 +152,7 @@ class _KanbanBoardState extends State<KanbanBoard> {
     // Set the initial values from the task object
     _titleController.text = task.title;
     _descriptionController.text = task.description;
+    EditMnuItem? selectedMenu;
 
     final ButtonStyle saveStyle = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 17),
@@ -173,9 +174,9 @@ class _KanbanBoardState extends State<KanbanBoard> {
       ),
     );
 
-    final ButtonStyle deleteStyle = TextButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 17),
-    );
+    // final ButtonStyle deleteStyle = TextButton.styleFrom(
+    //   textStyle: const TextStyle(fontSize: 17),
+    // );
 
     showDialog(
       context: context,
@@ -210,24 +211,9 @@ class _KanbanBoardState extends State<KanbanBoard> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 10.0),
-                        child: TextButton(
-                          style: deleteStyle,
-                          onPressed: () {
-                            print('delete');
-                          },
-                          child: const Row(
-                            children: [
-                              Text('Delete'),
-                              Padding(
-                                padding: EdgeInsets.only(left: 10.0),
-                                child: Icon(
-                                  Icons.cancel_outlined,
-                                  color: Colors.black45,
-                                  size: 24.0,
-                                ),
-                              ),
-                            ],
-                          ),
+                        child: EditMenuButton(
+                          initialValue: selectedMenu,
+                          onSelected: handleEditSelect,
                         ),
                       ),
                     ],
@@ -327,106 +313,26 @@ class _KanbanBoardState extends State<KanbanBoard> {
     );
   }
 
-// // Define a function to display the edit task dialog
-//   void _displayEditTask(int index, KTask task, ActionEnum action) {
-//     // Set the initial values from the task object
-//     _titleController.text = task.title;
-//     _descriptionController.text = task.description;
-
-//     // Show the dialog with the form widget
-//     showDialog(
-//       context: context,
-//       builder: (context) {
-//         return Form(
-//           key: _formKey,
-//           child: AlertDialog(
-//             title: Text(
-//               "${action.toString().split('.').last.toUpperCase()} Task",
-//               style: const TextStyle(
-//                 fontSize: 24,
-//                 fontWeight: FontWeight.w700,
-//                 color: Colors.black54,
-//               ),
-//             ),
-//             content: Container(
-//               width: 400.0,
-//               height: 200.0,
-//               margin: const EdgeInsets.symmetric(vertical: 8.0),
-//               child: Column(
-//                 children: <Widget>[
-//                   // Title text field
-//                   Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: TextFormField(
-//                       autofocus: true,
-//                       decoration: const InputDecoration(
-//                         hintText: 'Task Title',
-//                         border: OutlineInputBorder(),
-//                       ),
-//                       validator: (value) {
-//                         if (value?.isEmpty ?? true) {
-//                           return 'Please enter a title';
-//                         }
-//                         return null;
-//                       },
-//                       controller: _titleController,
-//                     ),
-//                   ),
-//                   // Description text field
-//                   Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: TextFormField(
-//                       decoration: const InputDecoration(
-//                         hintText: 'Task Description',
-//                         border: OutlineInputBorder(),
-//                       ),
-//                       validator: (value) {
-//                         if (value?.isEmpty ?? true) {
-//                           return 'Please enter a description';
-//                         }
-//                         return null;
-//                       },
-//                       controller: _descriptionController,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             actions: [
-//               Row(
-//                 children: [
-//                   OutlinedButton(
-//                     style: OutlinedButton.styleFrom(
-//                       side: BorderSide(
-//                         width: 2.0,
-//                         color: Theme.of(context).primaryColor,
-//                       ),
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(10),
-//                       ),
-//                       fixedSize: const Size(
-//                           90, 45), //change this width & height your requirnment
-//                     ),
-//                     onPressed: () {
-//                       // Reset the form to the initial values
-//                       _formKey.currentState!.reset();
-//                       // Navigate back to the previous screen
-//                       Navigator.of(context).pop();
-//                     },
-//                     child: const Align(
-//                       alignment: Alignment.centerLeft,
-//                       child: Text('Cancel'),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         );
-//       },
-//     ).then(
-//         (value) => {_titleController.clear(), _descriptionController.clear()});
-//   }
+// Define a function that takes the enum value as a parameter and handles the selection logic
+  void handleEditSelect(EditMnuItem item) {
+    switch (item) {
+      case EditMnuItem.archive:
+        print('archive');
+        break;
+      case EditMnuItem.copy:
+        print('copy');
+        break;
+      case EditMnuItem.delete:
+        print('delete');
+        break;
+      case EditMnuItem.reset:
+        print('reset');
+        break;
+      default:
+        print('default');
+        break;
+    }
+  }
 
   void _dragListener(DragUpdateDetails details) {
     if (details.localPosition.dx > MediaQuery.of(context).size.width - 40) {
@@ -437,43 +343,38 @@ class _KanbanBoardState extends State<KanbanBoard> {
   }
 }
 
-/*
-class _KanbanBoardStateX extends State<KanbanBoard> {
-  final ScrollController _scrollController = ScrollController();
+// Define a custom widget that takes the enum values and the onSelected callback as parameters
+class EditMenuButton extends StatelessWidget {
+  final EditMnuItem? initialValue;
+  final void Function(EditMnuItem) onSelected;
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
+  const EditMenuButton({
+    Key? key,
+    required this.initialValue,
+    required this.onSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      controller: _scrollController,
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.all(16),
-      itemCount: widget.columns.length + 1,
-      separatorBuilder: (_, __) => const SizedBox(width: 16),
-      itemBuilder: (context, index) {
-        if (index == widget.columns.length) {
-          return AddColumnButton(
-            addColumnAction: _showAddColumn,
-          );
-        } else {
-          return KanbanColumn(
-            column: widget.columns[index],
-            index: index,
-            dragHandler: widget.controller.dragHandler,
-            reorderHandler: widget.controller.handleReOrder,
-            addTaskHandler: _showAddTask,
-            dragListener: _dragListener,
-            deleteItemHandler: widget.controller.deleteItem,
-          );
-        }
-      },
+    // Use a map to store the enum values and their corresponding text labels
+    final Map<EditMnuItem, String> menuItems = {
+      EditMnuItem.archive: 'Archive',
+      EditMnuItem.copy: 'Copy',
+      EditMnuItem.delete: 'Delete',
+      EditMnuItem.reset: 'Reset',
+    };
+
+    // Use a list comprehension to generate the PopupMenuEntry widgets from the map
+    return PopupMenuButton<EditMnuItem>(
+      initialValue: initialValue,
+      itemBuilder: (context) => [
+        for (var entry in menuItems.entries)
+          PopupMenuItem<EditMnuItem>(
+            value: entry.key,
+            child: Text(entry.value),
+          ),
+      ],
+      onSelected: onSelected,
     );
   }
-*/
-
+}
