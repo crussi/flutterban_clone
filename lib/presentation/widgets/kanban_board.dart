@@ -57,8 +57,9 @@ class _KanbanBoardState extends State<KanbanBoard> {
   // Define controllers for each text field
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-
   final uuid = const Uuid();
+  int? index;
+  KTask? task;
 
   @override
   void dispose() {
@@ -90,7 +91,7 @@ class _KanbanBoardState extends State<KanbanBoard> {
               reorderHandler: widget.controller.handleTileReOrder,
               editTaskHandler: _displayEditTask,
               dragListener: _dragListener,
-              deleteItemHandler: widget.controller.deleteTask,
+              //deleteItemHandler: widget.controller.deleteTask,
             ),
           ),
       ],
@@ -128,28 +129,10 @@ class _KanbanBoardState extends State<KanbanBoard> {
     );
   }
 
-  // void _showAddTask(int index) {
-  //   showModalBottomSheet(
-  //     context: context,
-  //     isScrollControlled: true,
-  //     backgroundColor: Colors.white,
-  //     clipBehavior: Clip.hardEdge,
-  //     shape: const RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.only(
-  //         topLeft: Radius.circular(10),
-  //         topRight: Radius.circular(10),
-  //       ),
-  //     ),
-  //     builder: (context) => AddTaskForm(
-  //       addTaskHandler: (String title) {
-  //         widget.controller.addTask(title, index);
-  //       },
-  //     ),
-  //   );
-  // }
-
   void _displayEditTask(int index, KTask task, ActionEnum action) {
     // Set the initial values from the task object
+    this.index = index;
+    this.task = task;
     _titleController.text = task.title;
     _descriptionController.text = task.description;
     EditMnuItem? selectedMenu;
@@ -174,9 +157,13 @@ class _KanbanBoardState extends State<KanbanBoard> {
       ),
     );
 
-    // final ButtonStyle deleteStyle = TextButton.styleFrom(
-    //   textStyle: const TextStyle(fontSize: 17),
-    // );
+    closeDialog() {
+      Navigator.pop(context);
+    }
+
+    handelOnSelected(EditMnuItem item) {
+      handleEditSelect(item, closeDialog);
+    }
 
     showDialog(
       context: context,
@@ -213,7 +200,7 @@ class _KanbanBoardState extends State<KanbanBoard> {
                         padding: const EdgeInsets.only(right: 10.0),
                         child: EditMenuButton(
                           initialValue: selectedMenu,
-                          onSelected: handleEditSelect,
+                          onSelected: handelOnSelected,
                         ),
                       ),
                     ],
@@ -272,7 +259,7 @@ class _KanbanBoardState extends State<KanbanBoard> {
                               // Clear the text fields and close dialog
                               _titleController.clear();
                               _descriptionController.clear();
-                              Navigator.pop(context);
+                              closeDialog();
                             },
                             child: const Text('Cancel'),
                           ),
@@ -314,7 +301,7 @@ class _KanbanBoardState extends State<KanbanBoard> {
   }
 
 // Define a function that takes the enum value as a parameter and handles the selection logic
-  void handleEditSelect(EditMnuItem item) {
+  void handleEditSelect(EditMnuItem item, Function closeParentDialog) {
     switch (item) {
       case EditMnuItem.archive:
         print('archive');
@@ -324,6 +311,36 @@ class _KanbanBoardState extends State<KanbanBoard> {
         break;
       case EditMnuItem.delete:
         print('delete');
+        // Show a dialog widget with a confirmation message
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Delete task'),
+              content: const Text('Are you sure you want to delete this task?'),
+              actions: [
+                // Add a button for yes that calls the deleteTaskHandler
+                TextButton(
+                  onPressed: () {
+                    widget.deleteTaskHandler(index, task);
+                    Navigator.of(context).pop();
+                    // close the dialog
+                    closeParentDialog();
+                  },
+                  child: const Text('Yes'),
+                ),
+                // Add a button for no that closes the dialog
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // close the dialog
+                  },
+                  child: const Text('No'),
+                ),
+              ],
+            );
+          },
+        );
+        //Navigator.of(context).pop();
         break;
       case EditMnuItem.reset:
         print('reset');

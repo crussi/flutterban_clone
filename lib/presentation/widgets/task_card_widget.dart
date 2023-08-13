@@ -6,7 +6,7 @@ import '../../utils/theme.dart';
 class TaskCard extends StatelessWidget {
   final KTask task;
   final int columnIndex;
-  final Function deleteItemHandler;
+  //final Function deleteItemHandler;
   final Function editTaskHandler;
   final Function(DragUpdateDetails) dragListener;
 
@@ -15,7 +15,7 @@ class TaskCard extends StatelessWidget {
     required this.task,
     required this.columnIndex,
     required this.dragListener,
-    required this.deleteItemHandler,
+    //required this.deleteItemHandler,
     required this.editTaskHandler,
   });
 

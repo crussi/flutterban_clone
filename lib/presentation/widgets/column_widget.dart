@@ -15,7 +15,7 @@ class KanbanColumn extends StatelessWidget {
   final Function reorderHandler;
   final Function editTaskHandler;
   final Function(DragUpdateDetails) dragListener;
-  final Function deleteItemHandler;
+  //final Function deleteTaskHandler;
   final uuid = const Uuid();
 
   const KanbanColumn({
@@ -26,7 +26,7 @@ class KanbanColumn extends StatelessWidget {
     required this.reorderHandler,
     required this.editTaskHandler,
     required this.dragListener,
-    required this.deleteItemHandler,
+    //required this.deleteTaskHandler,
   });
 
   @override
@@ -109,13 +109,12 @@ class KanbanColumn extends StatelessWidget {
         children: [
           for (final task in column.children)
             TaskCard(
-              key: Key(task.id),
-              task: task,
-              columnIndex: index,
-              dragListener: dragListener,
-              deleteItemHandler: deleteItemHandler,
-              editTaskHandler: editTaskHandler
-            )
+                key: Key(task.id),
+                task: task,
+                columnIndex: index,
+                dragListener: dragListener,
+                //deleteItemHandler: deleteTaskHandler,
+                editTaskHandler: editTaskHandler)
         ],
       ),
     );
