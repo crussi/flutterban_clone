@@ -1,11 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 import '../../misc/enums.dart';
 import '../../misc/extensions.dart';
 import '../../models/column.dart';
 import '../../models/task.dart';
 import '../pages/kanban_board_controller.dart';
+import '../state_managers/bloc/kanban_bloc.dart';
 import 'add_column_widget.dart';
 import 'column_widget.dart';
 
@@ -34,6 +36,7 @@ class KanbanBoard extends StatefulWidget {
   final Function addTaskHandler;
   final Function updateTaskHandler;
   final Function deleteTaskHandler;
+  final Function selectTaskHandler;
 
   const KanbanBoard(
       {super.key,
@@ -42,7 +45,8 @@ class KanbanBoard extends StatefulWidget {
       required this.reorderHandler,
       required this.addTaskHandler,
       required this.updateTaskHandler,
-      required this.deleteTaskHandler});
+      required this.deleteTaskHandler,
+      required this.selectTaskHandler});
 
   @override
   State<KanbanBoard> createState() => _KanbanBoardState();
@@ -57,19 +61,23 @@ class _KanbanBoardState extends State<KanbanBoard> {
   // Define controllers for each text field
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _idController = TextEditingController();
   final uuid = const Uuid();
   int? index;
   KTask? task;
+  late BuildContext parentContext;
 
   @override
   void dispose() {
     _scrollController.dispose();
     _textController.dispose();
+    _idController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    parentContext = context;
     return ReorderableListView(
       proxyDecorator: proxyDecorator,
       scrollController: _scrollController,
@@ -135,6 +143,7 @@ class _KanbanBoardState extends State<KanbanBoard> {
     this.task = task;
     _titleController.text = task.title;
     _descriptionController.text = task.description;
+    _idController.text = task.id;
     EditMnuItem? selectedMenu;
 
     final ButtonStyle saveStyle = ElevatedButton.styleFrom(
@@ -161,19 +170,19 @@ class _KanbanBoardState extends State<KanbanBoard> {
       Navigator.pop(context);
     }
 
-    handelOnSelected(EditMnuItem item) {
+    handleOnSelected(EditMnuItem item) {
       handleEditSelect(item, closeDialog);
     }
 
     showDialog(
-      context: context,
+      context: parentContext,
       builder: (context) {
         return Dialog(
           child: Form(
             key: _formKey,
             child: SizedBox(
               width: 500.0,
-              height: 310.0,
+              height: 410.0,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -200,7 +209,7 @@ class _KanbanBoardState extends State<KanbanBoard> {
                         padding: const EdgeInsets.only(right: 10.0),
                         child: EditMenuButton(
                           initialValue: selectedMenu,
-                          onSelected: handelOnSelected,
+                          onSelected: handleOnSelected,
                         ),
                       ),
                     ],
@@ -243,6 +252,24 @@ class _KanbanBoardState extends State<KanbanBoard> {
                         return null;
                       },
                       controller: _descriptionController,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 20.0, right: 20.0, top: 5.0, bottom: 5.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Id',
+                        border: OutlineInputBorder(),
+                        helperText: " ",
+                      ),
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return '';
+                        }
+                        return null;
+                      },
+                      controller: _idController,
                     ),
                   ), // Buttons row
                   Row(
@@ -296,6 +323,8 @@ class _KanbanBoardState extends State<KanbanBoard> {
             ),
           ),
         );
+
+        //
       },
     );
   }
@@ -307,6 +336,9 @@ class _KanbanBoardState extends State<KanbanBoard> {
         print('archive');
         break;
       case EditMnuItem.copy:
+        KTask? newTask = task?.copyWith(id: uuid.v4());
+        task = newTask;
+        widget.selectTaskHandler(index, task);
         print('copy');
         break;
       case EditMnuItem.delete:

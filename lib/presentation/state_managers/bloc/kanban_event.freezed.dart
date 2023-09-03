@@ -26,6 +26,8 @@ mixin _$KanbanEvent {
     required TResult Function(int column, KTask task) addTask,
     required TResult Function(int column, KTask task) updateTask,
     required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,8 @@ mixin _$KanbanEvent {
     TResult? Function(int column, KTask task)? addTask,
     TResult? Function(int column, KTask task)? updateTask,
     TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,8 @@ mixin _$KanbanEvent {
     TResult Function(int column, KTask task)? addTask,
     TResult Function(int column, KTask task)? updateTask,
     TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,6 +69,8 @@ mixin _$KanbanEvent {
     required TResult Function(AddTask value) addTask,
     required TResult Function(UpdateTask value) updateTask,
     required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +83,8 @@ mixin _$KanbanEvent {
     TResult? Function(AddTask value)? addTask,
     TResult? Function(UpdateTask value)? updateTask,
     TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -87,6 +97,8 @@ mixin _$KanbanEvent {
     TResult Function(AddTask value)? addTask,
     TResult Function(UpdateTask value)? updateTask,
     TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -156,6 +168,8 @@ class _$GetColumns implements GetColumns {
     required TResult Function(int column, KTask task) addTask,
     required TResult Function(int column, KTask task) updateTask,
     required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
   }) {
     return getColumns();
   }
@@ -171,6 +185,8 @@ class _$GetColumns implements GetColumns {
     TResult? Function(int column, KTask task)? addTask,
     TResult? Function(int column, KTask task)? updateTask,
     TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
   }) {
     return getColumns?.call();
   }
@@ -186,6 +202,8 @@ class _$GetColumns implements GetColumns {
     TResult Function(int column, KTask task)? addTask,
     TResult Function(int column, KTask task)? updateTask,
     TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
     required TResult orElse(),
   }) {
     if (getColumns != null) {
@@ -205,6 +223,8 @@ class _$GetColumns implements GetColumns {
     required TResult Function(AddTask value) addTask,
     required TResult Function(UpdateTask value) updateTask,
     required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
   }) {
     return getColumns(this);
   }
@@ -220,6 +240,8 @@ class _$GetColumns implements GetColumns {
     TResult? Function(AddTask value)? addTask,
     TResult? Function(UpdateTask value)? updateTask,
     TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
   }) {
     return getColumns?.call(this);
   }
@@ -235,6 +257,8 @@ class _$GetColumns implements GetColumns {
     TResult Function(AddTask value)? addTask,
     TResult Function(UpdateTask value)? updateTask,
     TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
     required TResult orElse(),
   }) {
     if (getColumns != null) {
@@ -320,6 +344,8 @@ class _$AddColumn implements AddColumn {
     required TResult Function(int column, KTask task) addTask,
     required TResult Function(int column, KTask task) updateTask,
     required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
   }) {
     return addColumn(title);
   }
@@ -335,6 +361,8 @@ class _$AddColumn implements AddColumn {
     TResult? Function(int column, KTask task)? addTask,
     TResult? Function(int column, KTask task)? updateTask,
     TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
   }) {
     return addColumn?.call(title);
   }
@@ -350,6 +378,8 @@ class _$AddColumn implements AddColumn {
     TResult Function(int column, KTask task)? addTask,
     TResult Function(int column, KTask task)? updateTask,
     TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
     required TResult orElse(),
   }) {
     if (addColumn != null) {
@@ -369,6 +399,8 @@ class _$AddColumn implements AddColumn {
     required TResult Function(AddTask value) addTask,
     required TResult Function(UpdateTask value) updateTask,
     required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
   }) {
     return addColumn(this);
   }
@@ -384,6 +416,8 @@ class _$AddColumn implements AddColumn {
     TResult? Function(AddTask value)? addTask,
     TResult? Function(UpdateTask value)? updateTask,
     TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
   }) {
     return addColumn?.call(this);
   }
@@ -399,6 +433,8 @@ class _$AddColumn implements AddColumn {
     TResult Function(AddTask value)? addTask,
     TResult Function(UpdateTask value)? updateTask,
     TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
     required TResult orElse(),
   }) {
     if (addColumn != null) {
@@ -505,6 +541,8 @@ class _$ReorderTask implements ReorderTask {
     required TResult Function(int column, KTask task) addTask,
     required TResult Function(int column, KTask task) updateTask,
     required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
   }) {
     return reorderTask(column, from, to);
   }
@@ -520,6 +558,8 @@ class _$ReorderTask implements ReorderTask {
     TResult? Function(int column, KTask task)? addTask,
     TResult? Function(int column, KTask task)? updateTask,
     TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
   }) {
     return reorderTask?.call(column, from, to);
   }
@@ -535,6 +575,8 @@ class _$ReorderTask implements ReorderTask {
     TResult Function(int column, KTask task)? addTask,
     TResult Function(int column, KTask task)? updateTask,
     TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
     required TResult orElse(),
   }) {
     if (reorderTask != null) {
@@ -554,6 +596,8 @@ class _$ReorderTask implements ReorderTask {
     required TResult Function(AddTask value) addTask,
     required TResult Function(UpdateTask value) updateTask,
     required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
   }) {
     return reorderTask(this);
   }
@@ -569,6 +613,8 @@ class _$ReorderTask implements ReorderTask {
     TResult? Function(AddTask value)? addTask,
     TResult? Function(UpdateTask value)? updateTask,
     TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
   }) {
     return reorderTask?.call(this);
   }
@@ -584,6 +630,8 @@ class _$ReorderTask implements ReorderTask {
     TResult Function(AddTask value)? addTask,
     TResult Function(UpdateTask value)? updateTask,
     TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
     required TResult orElse(),
   }) {
     if (reorderTask != null) {
@@ -685,6 +733,8 @@ class _$ReorderColumn implements ReorderColumn {
     required TResult Function(int column, KTask task) addTask,
     required TResult Function(int column, KTask task) updateTask,
     required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
   }) {
     return reorderColumn(from, to);
   }
@@ -700,6 +750,8 @@ class _$ReorderColumn implements ReorderColumn {
     TResult? Function(int column, KTask task)? addTask,
     TResult? Function(int column, KTask task)? updateTask,
     TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
   }) {
     return reorderColumn?.call(from, to);
   }
@@ -715,6 +767,8 @@ class _$ReorderColumn implements ReorderColumn {
     TResult Function(int column, KTask task)? addTask,
     TResult Function(int column, KTask task)? updateTask,
     TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
     required TResult orElse(),
   }) {
     if (reorderColumn != null) {
@@ -734,6 +788,8 @@ class _$ReorderColumn implements ReorderColumn {
     required TResult Function(AddTask value) addTask,
     required TResult Function(UpdateTask value) updateTask,
     required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
   }) {
     return reorderColumn(this);
   }
@@ -749,6 +805,8 @@ class _$ReorderColumn implements ReorderColumn {
     TResult? Function(AddTask value)? addTask,
     TResult? Function(UpdateTask value)? updateTask,
     TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
   }) {
     return reorderColumn?.call(this);
   }
@@ -764,6 +822,8 @@ class _$ReorderColumn implements ReorderColumn {
     TResult Function(AddTask value)? addTask,
     TResult Function(UpdateTask value)? updateTask,
     TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
     required TResult orElse(),
   }) {
     if (reorderColumn != null) {
@@ -872,6 +932,8 @@ class _$MoveTask implements MoveTask {
     required TResult Function(int column, KTask task) addTask,
     required TResult Function(int column, KTask task) updateTask,
     required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
   }) {
     return moveTask(data, column);
   }
@@ -887,6 +949,8 @@ class _$MoveTask implements MoveTask {
     TResult? Function(int column, KTask task)? addTask,
     TResult? Function(int column, KTask task)? updateTask,
     TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
   }) {
     return moveTask?.call(data, column);
   }
@@ -902,6 +966,8 @@ class _$MoveTask implements MoveTask {
     TResult Function(int column, KTask task)? addTask,
     TResult Function(int column, KTask task)? updateTask,
     TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
     required TResult orElse(),
   }) {
     if (moveTask != null) {
@@ -921,6 +987,8 @@ class _$MoveTask implements MoveTask {
     required TResult Function(AddTask value) addTask,
     required TResult Function(UpdateTask value) updateTask,
     required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
   }) {
     return moveTask(this);
   }
@@ -936,6 +1004,8 @@ class _$MoveTask implements MoveTask {
     TResult? Function(AddTask value)? addTask,
     TResult? Function(UpdateTask value)? updateTask,
     TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
   }) {
     return moveTask?.call(this);
   }
@@ -951,6 +1021,8 @@ class _$MoveTask implements MoveTask {
     TResult Function(AddTask value)? addTask,
     TResult Function(UpdateTask value)? updateTask,
     TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
     required TResult orElse(),
   }) {
     if (moveTask != null) {
@@ -1058,6 +1130,8 @@ class _$AddTask implements AddTask {
     required TResult Function(int column, KTask task) addTask,
     required TResult Function(int column, KTask task) updateTask,
     required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
   }) {
     return addTask(column, task);
   }
@@ -1073,6 +1147,8 @@ class _$AddTask implements AddTask {
     TResult? Function(int column, KTask task)? addTask,
     TResult? Function(int column, KTask task)? updateTask,
     TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
   }) {
     return addTask?.call(column, task);
   }
@@ -1088,6 +1164,8 @@ class _$AddTask implements AddTask {
     TResult Function(int column, KTask task)? addTask,
     TResult Function(int column, KTask task)? updateTask,
     TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
     required TResult orElse(),
   }) {
     if (addTask != null) {
@@ -1107,6 +1185,8 @@ class _$AddTask implements AddTask {
     required TResult Function(AddTask value) addTask,
     required TResult Function(UpdateTask value) updateTask,
     required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
   }) {
     return addTask(this);
   }
@@ -1122,6 +1202,8 @@ class _$AddTask implements AddTask {
     TResult? Function(AddTask value)? addTask,
     TResult? Function(UpdateTask value)? updateTask,
     TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
   }) {
     return addTask?.call(this);
   }
@@ -1137,6 +1219,8 @@ class _$AddTask implements AddTask {
     TResult Function(AddTask value)? addTask,
     TResult Function(UpdateTask value)? updateTask,
     TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
     required TResult orElse(),
   }) {
     if (addTask != null) {
@@ -1246,6 +1330,8 @@ class _$UpdateTask implements UpdateTask {
     required TResult Function(int column, KTask task) addTask,
     required TResult Function(int column, KTask task) updateTask,
     required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
   }) {
     return updateTask(column, task);
   }
@@ -1261,6 +1347,8 @@ class _$UpdateTask implements UpdateTask {
     TResult? Function(int column, KTask task)? addTask,
     TResult? Function(int column, KTask task)? updateTask,
     TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
   }) {
     return updateTask?.call(column, task);
   }
@@ -1276,6 +1364,8 @@ class _$UpdateTask implements UpdateTask {
     TResult Function(int column, KTask task)? addTask,
     TResult Function(int column, KTask task)? updateTask,
     TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
     required TResult orElse(),
   }) {
     if (updateTask != null) {
@@ -1295,6 +1385,8 @@ class _$UpdateTask implements UpdateTask {
     required TResult Function(AddTask value) addTask,
     required TResult Function(UpdateTask value) updateTask,
     required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
   }) {
     return updateTask(this);
   }
@@ -1310,6 +1402,8 @@ class _$UpdateTask implements UpdateTask {
     TResult? Function(AddTask value)? addTask,
     TResult? Function(UpdateTask value)? updateTask,
     TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
   }) {
     return updateTask?.call(this);
   }
@@ -1325,6 +1419,8 @@ class _$UpdateTask implements UpdateTask {
     TResult Function(AddTask value)? addTask,
     TResult Function(UpdateTask value)? updateTask,
     TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
     required TResult orElse(),
   }) {
     if (updateTask != null) {
@@ -1434,6 +1530,8 @@ class _$DeleteTask implements DeleteTask {
     required TResult Function(int column, KTask task) addTask,
     required TResult Function(int column, KTask task) updateTask,
     required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
   }) {
     return deleteTask(column, task);
   }
@@ -1449,6 +1547,8 @@ class _$DeleteTask implements DeleteTask {
     TResult? Function(int column, KTask task)? addTask,
     TResult? Function(int column, KTask task)? updateTask,
     TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
   }) {
     return deleteTask?.call(column, task);
   }
@@ -1464,6 +1564,8 @@ class _$DeleteTask implements DeleteTask {
     TResult Function(int column, KTask task)? addTask,
     TResult Function(int column, KTask task)? updateTask,
     TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
     required TResult orElse(),
   }) {
     if (deleteTask != null) {
@@ -1483,6 +1585,8 @@ class _$DeleteTask implements DeleteTask {
     required TResult Function(AddTask value) addTask,
     required TResult Function(UpdateTask value) updateTask,
     required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
   }) {
     return deleteTask(this);
   }
@@ -1498,6 +1602,8 @@ class _$DeleteTask implements DeleteTask {
     TResult? Function(AddTask value)? addTask,
     TResult? Function(UpdateTask value)? updateTask,
     TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
   }) {
     return deleteTask?.call(this);
   }
@@ -1513,6 +1619,8 @@ class _$DeleteTask implements DeleteTask {
     TResult Function(AddTask value)? addTask,
     TResult Function(UpdateTask value)? updateTask,
     TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
     required TResult orElse(),
   }) {
     if (deleteTask != null) {
@@ -1529,5 +1637,404 @@ abstract class DeleteTask implements KanbanEvent {
   KTask get task;
   @JsonKey(ignore: true)
   _$$DeleteTaskCopyWith<_$DeleteTask> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectTaskCopyWith<$Res> {
+  factory _$$SelectTaskCopyWith(
+          _$SelectTask value, $Res Function(_$SelectTask) then) =
+      __$$SelectTaskCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int column, KTask task});
+
+  $KTaskCopyWith<$Res> get task;
+}
+
+/// @nodoc
+class __$$SelectTaskCopyWithImpl<$Res>
+    extends _$KanbanEventCopyWithImpl<$Res, _$SelectTask>
+    implements _$$SelectTaskCopyWith<$Res> {
+  __$$SelectTaskCopyWithImpl(
+      _$SelectTask _value, $Res Function(_$SelectTask) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? column = null,
+    Object? task = null,
+  }) {
+    return _then(_$SelectTask(
+      null == column
+          ? _value.column
+          : column // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == task
+          ? _value.task
+          : task // ignore: cast_nullable_to_non_nullable
+              as KTask,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $KTaskCopyWith<$Res> get task {
+    return $KTaskCopyWith<$Res>(_value.task, (value) {
+      return _then(_value.copyWith(task: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$SelectTask implements SelectTask {
+  const _$SelectTask(this.column, this.task);
+
+  @override
+  final int column;
+  @override
+  final KTask task;
+
+  @override
+  String toString() {
+    return 'KanbanEvent.selectTask(column: $column, task: $task)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectTask &&
+            (identical(other.column, column) || other.column == column) &&
+            (identical(other.task, task) || other.task == task));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, column, task);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectTaskCopyWith<_$SelectTask> get copyWith =>
+      __$$SelectTaskCopyWithImpl<_$SelectTask>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getColumns,
+    required TResult Function(String title) addColumn,
+    required TResult Function(int column, int from, int to) reorderTask,
+    required TResult Function(int from, int to) reorderColumn,
+    required TResult Function(KTileData data, int column) moveTask,
+    required TResult Function(int column, KTask task) addTask,
+    required TResult Function(int column, KTask task) updateTask,
+    required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
+  }) {
+    return selectTask(column, task);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getColumns,
+    TResult? Function(String title)? addColumn,
+    TResult? Function(int column, int from, int to)? reorderTask,
+    TResult? Function(int from, int to)? reorderColumn,
+    TResult? Function(KTileData data, int column)? moveTask,
+    TResult? Function(int column, KTask task)? addTask,
+    TResult? Function(int column, KTask task)? updateTask,
+    TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
+  }) {
+    return selectTask?.call(column, task);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getColumns,
+    TResult Function(String title)? addColumn,
+    TResult Function(int column, int from, int to)? reorderTask,
+    TResult Function(int from, int to)? reorderColumn,
+    TResult Function(KTileData data, int column)? moveTask,
+    TResult Function(int column, KTask task)? addTask,
+    TResult Function(int column, KTask task)? updateTask,
+    TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
+    required TResult orElse(),
+  }) {
+    if (selectTask != null) {
+      return selectTask(column, task);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetColumns value) getColumns,
+    required TResult Function(AddColumn value) addColumn,
+    required TResult Function(ReorderTask value) reorderTask,
+    required TResult Function(ReorderColumn value) reorderColumn,
+    required TResult Function(MoveTask value) moveTask,
+    required TResult Function(AddTask value) addTask,
+    required TResult Function(UpdateTask value) updateTask,
+    required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
+  }) {
+    return selectTask(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetColumns value)? getColumns,
+    TResult? Function(AddColumn value)? addColumn,
+    TResult? Function(ReorderTask value)? reorderTask,
+    TResult? Function(ReorderColumn value)? reorderColumn,
+    TResult? Function(MoveTask value)? moveTask,
+    TResult? Function(AddTask value)? addTask,
+    TResult? Function(UpdateTask value)? updateTask,
+    TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
+  }) {
+    return selectTask?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetColumns value)? getColumns,
+    TResult Function(AddColumn value)? addColumn,
+    TResult Function(ReorderTask value)? reorderTask,
+    TResult Function(ReorderColumn value)? reorderColumn,
+    TResult Function(MoveTask value)? moveTask,
+    TResult Function(AddTask value)? addTask,
+    TResult Function(UpdateTask value)? updateTask,
+    TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
+    required TResult orElse(),
+  }) {
+    if (selectTask != null) {
+      return selectTask(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SelectTask implements KanbanEvent {
+  const factory SelectTask(final int column, final KTask task) = _$SelectTask;
+
+  int get column;
+  KTask get task;
+  @JsonKey(ignore: true)
+  _$$SelectTaskCopyWith<_$SelectTask> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EditTaskCopyWith<$Res> {
+  factory _$$EditTaskCopyWith(
+          _$EditTask value, $Res Function(_$EditTask) then) =
+      __$$EditTaskCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int column, KTask task});
+
+  $KTaskCopyWith<$Res> get task;
+}
+
+/// @nodoc
+class __$$EditTaskCopyWithImpl<$Res>
+    extends _$KanbanEventCopyWithImpl<$Res, _$EditTask>
+    implements _$$EditTaskCopyWith<$Res> {
+  __$$EditTaskCopyWithImpl(_$EditTask _value, $Res Function(_$EditTask) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? column = null,
+    Object? task = null,
+  }) {
+    return _then(_$EditTask(
+      null == column
+          ? _value.column
+          : column // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == task
+          ? _value.task
+          : task // ignore: cast_nullable_to_non_nullable
+              as KTask,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $KTaskCopyWith<$Res> get task {
+    return $KTaskCopyWith<$Res>(_value.task, (value) {
+      return _then(_value.copyWith(task: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$EditTask implements EditTask {
+  const _$EditTask(this.column, this.task);
+
+  @override
+  final int column;
+  @override
+  final KTask task;
+
+  @override
+  String toString() {
+    return 'KanbanEvent.editTask(column: $column, task: $task)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EditTask &&
+            (identical(other.column, column) || other.column == column) &&
+            (identical(other.task, task) || other.task == task));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, column, task);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EditTaskCopyWith<_$EditTask> get copyWith =>
+      __$$EditTaskCopyWithImpl<_$EditTask>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getColumns,
+    required TResult Function(String title) addColumn,
+    required TResult Function(int column, int from, int to) reorderTask,
+    required TResult Function(int from, int to) reorderColumn,
+    required TResult Function(KTileData data, int column) moveTask,
+    required TResult Function(int column, KTask task) addTask,
+    required TResult Function(int column, KTask task) updateTask,
+    required TResult Function(int column, KTask task) deleteTask,
+    required TResult Function(int column, KTask task) selectTask,
+    required TResult Function(int column, KTask task) editTask,
+  }) {
+    return editTask(column, task);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getColumns,
+    TResult? Function(String title)? addColumn,
+    TResult? Function(int column, int from, int to)? reorderTask,
+    TResult? Function(int from, int to)? reorderColumn,
+    TResult? Function(KTileData data, int column)? moveTask,
+    TResult? Function(int column, KTask task)? addTask,
+    TResult? Function(int column, KTask task)? updateTask,
+    TResult? Function(int column, KTask task)? deleteTask,
+    TResult? Function(int column, KTask task)? selectTask,
+    TResult? Function(int column, KTask task)? editTask,
+  }) {
+    return editTask?.call(column, task);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getColumns,
+    TResult Function(String title)? addColumn,
+    TResult Function(int column, int from, int to)? reorderTask,
+    TResult Function(int from, int to)? reorderColumn,
+    TResult Function(KTileData data, int column)? moveTask,
+    TResult Function(int column, KTask task)? addTask,
+    TResult Function(int column, KTask task)? updateTask,
+    TResult Function(int column, KTask task)? deleteTask,
+    TResult Function(int column, KTask task)? selectTask,
+    TResult Function(int column, KTask task)? editTask,
+    required TResult orElse(),
+  }) {
+    if (editTask != null) {
+      return editTask(column, task);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetColumns value) getColumns,
+    required TResult Function(AddColumn value) addColumn,
+    required TResult Function(ReorderTask value) reorderTask,
+    required TResult Function(ReorderColumn value) reorderColumn,
+    required TResult Function(MoveTask value) moveTask,
+    required TResult Function(AddTask value) addTask,
+    required TResult Function(UpdateTask value) updateTask,
+    required TResult Function(DeleteTask value) deleteTask,
+    required TResult Function(SelectTask value) selectTask,
+    required TResult Function(EditTask value) editTask,
+  }) {
+    return editTask(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetColumns value)? getColumns,
+    TResult? Function(AddColumn value)? addColumn,
+    TResult? Function(ReorderTask value)? reorderTask,
+    TResult? Function(ReorderColumn value)? reorderColumn,
+    TResult? Function(MoveTask value)? moveTask,
+    TResult? Function(AddTask value)? addTask,
+    TResult? Function(UpdateTask value)? updateTask,
+    TResult? Function(DeleteTask value)? deleteTask,
+    TResult? Function(SelectTask value)? selectTask,
+    TResult? Function(EditTask value)? editTask,
+  }) {
+    return editTask?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetColumns value)? getColumns,
+    TResult Function(AddColumn value)? addColumn,
+    TResult Function(ReorderTask value)? reorderTask,
+    TResult Function(ReorderColumn value)? reorderColumn,
+    TResult Function(MoveTask value)? moveTask,
+    TResult Function(AddTask value)? addTask,
+    TResult Function(UpdateTask value)? updateTask,
+    TResult Function(DeleteTask value)? deleteTask,
+    TResult Function(SelectTask value)? selectTask,
+    TResult Function(EditTask value)? editTask,
+    required TResult orElse(),
+  }) {
+    if (editTask != null) {
+      return editTask(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EditTask implements KanbanEvent {
+  const factory EditTask(final int column, final KTask task) = _$EditTask;
+
+  int get column;
+  KTask get task;
+  @JsonKey(ignore: true)
+  _$$EditTaskCopyWith<_$EditTask> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -16,4 +16,6 @@ class KanbanEvent with _$KanbanEvent {
   const factory KanbanEvent.addTask(int column, KTask task) = AddTask;
   const factory KanbanEvent.updateTask(int column, KTask task) = UpdateTask;
   const factory KanbanEvent.deleteTask(int column, KTask task) = DeleteTask;
+  const factory KanbanEvent.selectTask(int column, KTask task) = SelectTask;
+  const factory KanbanEvent.editTask(int column, KTask task) = EditTask;
 }

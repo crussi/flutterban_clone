@@ -123,6 +123,31 @@ class KanbanBloc extends Bloc<KanbanEvent, KanbanState> {
             ),
           );
         },
+        selectTask: (column, task) {
+            print('selectTask column: $column task: ${task.toString()}');
+            final updatedColumns = currentState.columns;
+            updatedColumns[column].children.remove(task);
+            emit(
+              currentState.copyWith(
+                columns: updatedColumns,
+                status: Status.loaded,
+              ),
+            );
+
+        },
+        editTask: (column, task) {
+            print('editTask column: $column task: ${task.toString()}');
+            //final updatedColumns = currentState.columns;
+            //updatedColumns[column].children.remove(task);
+            emit(
+              currentState.copyWith(
+                selectedTask: task,
+                status: Status.editTask,
+              ),
+            );
+
+        }
+
       );
     });
   }

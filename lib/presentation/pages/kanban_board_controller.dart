@@ -8,4 +8,5 @@ abstract class KanbanBoardController {
   void addTask(int column, KTask task);
   void updateTask(int column, KTask task);
   void deleteTask(int columnIndex, KTask task);
+  void selectTask(int columnIndex, KTask task);
 }

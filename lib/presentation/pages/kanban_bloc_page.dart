@@ -69,16 +69,18 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
                 return const Center(
                   child: CenteredProgressIndicator(),
                 );
+              case Status.selectTask:
+              case Status.editTask:
               case Status.loaded:
                 if (state.columns.isNotEmpty) {
                   return KanbanBoard(
-                    controller: this,
-                    columns: state.columns,
-                    reorderHandler: handleColumnReOrder,
-                    addTaskHandler: addTask,
-                    updateTaskHandler: updateTask,
-                    deleteTaskHandler: deleteTask,
-                  );
+                      controller: this,
+                      columns: state.columns,
+                      reorderHandler: handleColumnReOrder,
+                      addTaskHandler: addTask,
+                      updateTaskHandler: updateTask,
+                      deleteTaskHandler: deleteTask,
+                      selectTaskHandler: selectTask);
                 } else {
                   return const SizedBox.shrink();
                 }
@@ -136,6 +138,13 @@ class _KanbanBlocPageState extends State<KanbanBlocPage>
     print(
         'bloc page deleteItem columnIndex: $columnIndex task: ${task.toString()}');
     context.read<KanbanBloc>().add(KanbanEvent.deleteTask(columnIndex, task));
+  }
+
+  @override
+  void selectTask(int columnIndex, KTask task) {
+    print(
+        'bloc page selectItem columnIndex: $columnIndex task: ${task.toString()}');
+    context.read<KanbanBloc>().add(KanbanEvent.selectTask(columnIndex, task));
   }
 
   void _showAddColumn() {

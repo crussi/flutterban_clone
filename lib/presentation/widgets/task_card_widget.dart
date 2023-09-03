@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../misc/enums.dart';
 import '../../models/models.dart';
 import '../../utils/theme.dart';
+import '../state_managers/bloc/kanban_bloc.dart';
 
 class TaskCard extends StatelessWidget {
   final KTask task;
@@ -64,7 +66,9 @@ class TaskCard extends StatelessWidget {
               data: KTileData(from: columnIndex, task: task),
               child: GestureDetector(
                 onDoubleTap: () {
-                  editTaskHandler(columnIndex, task, ActionEnum.edit);
+                  //editTaskHandler(columnIndex, task, ActionEnum.edit);
+                  BlocProvider.of<KanbanBloc>(context)
+                      .add(KanbanEvent.editTask(columnIndex, task));
                 },
                 child: Container(
                   //alignment: Alignment.centerLeft,
@@ -91,6 +95,38 @@ class TaskCard extends StatelessWidget {
               ),
             ));
       },
+    );
+  }
+}
+
+class TaskEditDialog extends StatelessWidget {
+  const TaskEditDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<KanbanBloc, KanbanState>(
+      listener: (context, state) {
+        if (state.status == Status.editTask) {
+          final selectedTask = state.selectedTask;
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text('Edit Task'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Title: ${selectedTask?.title}'),
+                    Text('Description: ${selectedTask?.description}'),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+      },
+      child: Container(),
     );
   }
 }
